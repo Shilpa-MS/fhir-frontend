@@ -15,18 +15,17 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "2em",
     left: "2em",
-    // fontWeight:100
   },
   body: {
     position: "absolute",
     top: "10em",
     left: "2em",
-    // fontWeight:100
   },
 }));
 
 const Patient = () => {
   const classes = useStyles();
+
   return (
     <React.Fragment>
       <div className={classes.container}>

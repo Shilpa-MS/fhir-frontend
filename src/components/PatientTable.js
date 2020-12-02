@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -8,80 +8,106 @@ import {
   TableRow,
   Paper,
 } from "@material-ui/core";
-import Typography from '@material-ui/core/Typography'
+import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from '@material-ui/core/Button';
-import {Link} from 'react-router-dom'
-// import patients from "../data/patients.json";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
+import axios from "./axios";
 
-const useStyles = makeStyles(theme=>({
+const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
-  heading:{
-    color:theme.palette.common.blue,
-    textAlign:"center",
-    fontWeight:200,
-    margin:"2rem"
+  heading: {
+    color: theme.palette.common.blue,
+    textAlign: "center",
+    fontWeight: 200,
+    margin: "2rem",
   },
-  button:{
-    marginRight:"auto",
-    margin:"1rem"
-  }
+  button: {
+    marginRight: "auto",
+    margin: "1rem",
+  },
 }));
-const PatientTable = () => {
+const PatientTable = (props) => {
   const classes = useStyles();
+  const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    async function getPatient() {
+      const request = await axios.get(`${props.path}`);
+      setPatients(request.data.entry);
+      return request;
+    }
+    getPatient();
+  }, [props.path]);
+
+
 
   return (
     <React.Fragment>
-      <Typography variant="h4" className={classes.heading} >Patient Data</Typography>
-      <TableContainer component={Paper}>
+      <Typography variant="h4" className={classes.heading}>
+        Patient Data
+      </Typography>
+      {patients.length>0?(<TableContainer component={Paper}>
         <Table className={classes.table} size="small">
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
-              <TableCell >Test Date</TableCell>
-              <TableCell >Assigner</TableCell>
-              <TableCell >Active</TableCell>
-              <TableCell >Name</TableCell>
-              <TableCell  colSpan={2} >Phone
-              </TableCell>
+              <TableCell>Test Date</TableCell>
+              <TableCell>Assigner</TableCell>
+              <TableCell>Active</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell colSpan={2}>Phone</TableCell>
               <TableCell>Gender</TableCell>
-              <TableCell >DOB</TableCell>
+              <TableCell>DOB</TableCell>
             </TableRow>
             <TableRow>
-            <TableCell></TableCell>
-              <TableCell ></TableCell>
-              <TableCell ></TableCell>
-              <TableCell ></TableCell>
-              <TableCell ></TableCell>
-              <TableCell  >Work
-              </TableCell>
-              <TableCell >Mobile</TableCell>
-              <TableCell ></TableCell>
               <TableCell></TableCell>
-
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell>Work</TableCell>
+              <TableCell>Mobile</TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
+           {
+             patients.map(patient=>(
+              <TableRow>
+              <TableCell>
+              {patient.resource['id']}
+              </TableCell>
+              <TableCell>{patient.resource.identifier[0].period.start}</TableCell>
+              <TableCell>{patient.resource.identifier[0].assigner.display}</TableCell>
+             <TableCell>{patient.resource['active'].toString()}</TableCell>
+              <TableCell>{patient.resource.name[0].given.toString()}</TableCell>
+              <TableCell>{patient.resource.telecom[1].value.toString()}</TableCell>
+              <TableCell>{patient.resource.telecom[2].value.toString()}</TableCell>
 
-           <TableRow>
-           <TableCell>17619504486-5b1e545f-dc76-4bf1-ae89-227230e73ebc</TableCell>
-              <TableCell >2001-05-06</TableCell>
-              <TableCell >Acme Healthcare</TableCell>
-              <TableCell >true</TableCell>
-              <TableCell >Peter James</TableCell>
-              <TableCell >(03) 555 6473</TableCell>
-              <TableCell >(03) 3410 5613</TableCell>
+              <TableCell>{patient.resource.gender.toString()}</TableCell>
+              <TableCell>{patient.resource.birthDate}</TableCell>
+            </TableRow>
+             ))
+           }
 
-              <TableCell >Male</TableCell>
-              <TableCell >1974-12-25</TableCell>
-           </TableRow>
+           
           </TableBody>
         </Table>
-      </TableContainer>
-      <Button variant="contained" color="primary" component={Link} to="/patient" size="small" className={classes.button}>Back</Button>
-
+      </TableContainer>):null}
+      <Button
+        variant="contained"
+        color="primary"
+        component={Link}
+        to="/patient"
+        size="small"
+        className={classes.button}
+      >
+        Back
+      </Button>
     </React.Fragment>
   );
 };

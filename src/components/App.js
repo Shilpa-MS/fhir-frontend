@@ -25,7 +25,7 @@ function App() {
           <Route path="/observation" component={()=>(<Observation/>)}/>
           <Route path="/encounter" component={()=>(<div>Encounter</div>)}/>
           <Route path="/patient" component={()=>(<Patient/>)}/>
-          <Route path="/view-patients" component={()=>(<PatientTable/>)}/>
+          <Route path="/view-patients" component={()=>(<PatientTable path="Patient"/>)}/>
 
         </Switch>
         </BrowserRouter>
