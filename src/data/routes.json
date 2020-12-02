@@ -1,0 +1,11 @@
+[
+    { "name": "Home", "link": "/","activeIndex":0 },
+    { "name": "Account", "link": "/account","activeIndex":1 },
+    { "name": "Allergy Intolerance", "link": "/allergy-intolerance","activeIndex":2 },
+    { "name": "Claim", "link": "/claim","activeIndex":3 },
+    { "name": "Insurance Plan", "link": "/insurance-plan","activeIndex":4 },
+    { "name": "Observation", "link": "/observation" ,"activeIndex":5},
+    { "name": "Encounter", "link": "/encounter","activeIndex":6 },
+    { "name": "Patient", "link": "/patient","activeIndex":7 }
+
+  ]
