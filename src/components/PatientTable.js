@@ -13,6 +13,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import axios from "./axios";
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -97,7 +99,7 @@ const PatientTable = (props) => {
            
           </TableBody>
         </Table>
-      </TableContainer>):null}
+      </TableContainer>):<LinearProgress/>}
       <Button
         variant="contained"
         color="primary"

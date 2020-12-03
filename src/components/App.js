@@ -5,9 +5,11 @@ import Header from './Header';
 import Home from './Home';
 import Observation from './Observation';
 import Patient from './Patient';
+import AllergyIntolerance from './AllergyIntolerance';
 import PatientTable from './PatientTable';
 import PatientById from './PatientById';
 import ObservationTable from './ObservationTable';
+import AllergyTable from './AllergyTable';
 
 import { SnackbarProvider } from 'notistack';
 
@@ -25,7 +27,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={()=>(<Home/>)}/>
           <Route path="/account" component={()=>(<div>Account</div>)}/>
-          <Route path="/allergy-intolerance" component={()=>(<div>Allergy Intolerance</div>)}/>
+          <Route path="/allergy-intolerance" component={()=>(<AllergyIntolerance/>)}/>
           <Route path="/claim" component={()=>(<div>Claim</div>)}/>
           <Route path="/insurance-plan" component={()=>(<div>Insurance Plan</div>)}/>
           <Route path="/observation" component={()=>(<Observation/>)}/>
@@ -34,6 +36,7 @@ function App() {
           <Route path="/view-patients" component={()=>(<PatientTable path="Patient"/>)}/>
           <Route path="/view-patient-by-id" component={()=>(<PatientById path="Patient"/>)}/>
           <Route path="/view-observations" component={()=>(<ObservationTable path="Observation"/>)}/>
+          <Route path="/view-allergy" component={()=>(<AllergyTable path="AllergyIntolerance"/>)}/>
 
         </Switch>
         </BrowserRouter>

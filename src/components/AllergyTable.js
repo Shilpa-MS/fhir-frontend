@@ -15,11 +15,9 @@ import { Link } from "react-router-dom";
 import axios from "./axios";
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
-    
   },
   heading: {
     color: theme.palette.common.blue,
@@ -32,14 +30,14 @@ const useStyles = makeStyles((theme) => ({
     margin: "1rem",
   },
 }));
-const ObservationTable = (props) => {
+const AllergyTable = (props) => {
   const classes = useStyles();
-  const [patients, setPatients] = useState([]);
+  const [allergy, setAllergy] = useState([]);
 
   useEffect(() => {
     async function getPatient() {
       const request = await axios.get(`${props.path}`);
-      setPatients(request.data.entry);
+      setAllergy(request.data.entry);
       console.log(request.data.entry)
       return request;
     }
@@ -51,25 +49,22 @@ const ObservationTable = (props) => {
   return (
     <React.Fragment>
       <Typography variant="h4" className={classes.heading}>
-        Observation Data
+        Allergy Intolerance Data
       </Typography>
-      {patients.length>0?(<TableContainer component={Paper}>
+      {allergy.length>0?(<TableContainer component={Paper}>
         <Table className={classes.table} size="small">
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Test Date</TableCell>
-              <TableCell colSpan={3}>Tag</TableCell>
-              <TableCell colSpan={3}>Coding Category</TableCell>
-              <TableCell colSpan={3}>Coding</TableCell>
-             
+              <TableCell colSpan={5}>ID</TableCell>
+              <TableCell colSpan={3}>Substance</TableCell>
+              <TableCell colSpan={3}>Manifestation</TableCell>           
             </TableRow>
             <TableRow>
               <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell>System</TableCell>
-              <TableCell>Code</TableCell>
-              <TableCell>Display</TableCell>
+              <TableCell>Last Occurance</TableCell>
+              <TableCell>Categories</TableCell>
+              <TableCell>Criticality</TableCell>
+              <TableCell>Description</TableCell>
               <TableCell>System</TableCell>
               <TableCell>Code</TableCell>
               <TableCell>Display</TableCell>
@@ -80,19 +75,19 @@ const ObservationTable = (props) => {
           </TableHead>
           <TableBody>
            {
-             patients.map(patient=>(
+             allergy.map(allergy=>(
               <TableRow>
-              <TableCell>{patient.resource.id}</TableCell>
-              <TableCell>{patient.resource.effectiveDateTime}</TableCell>
-              <TableCell>{patient.resource.meta.tag[0].system}</TableCell>
-              <TableCell>{patient.resource.meta.tag[0].code}</TableCell>
-              <TableCell>{patient.resource.meta.tag[0].display}</TableCell>
-              <TableCell>{patient.resource.category[0].coding[0].system}</TableCell>
-              <TableCell>{patient.resource.category[0].coding[0].code}</TableCell>
-              <TableCell>{patient.resource.category[0].coding[0].display}</TableCell>
-              <TableCell>{patient.resource.code.coding[3].system}</TableCell>
-              <TableCell>Code</TableCell>
-              <TableCell>Display</TableCell>
+              <TableCell>{allergy["resource"]["id"]}</TableCell>
+              <TableCell>{allergy["resource"]["lastOccurrence"]}</TableCell>
+              <TableCell>{allergy["resource"]["category"]}</TableCell>
+              <TableCell>{allergy["resource"]["criticality"]}</TableCell>
+              <TableCell>{allergy["resource"].note[0]["text"]}</TableCell>
+              <TableCell>{allergy["resource"].reaction[0]["substance"].coding[0]["system"]}</TableCell>
+              <TableCell>{allergy["resource"].reaction[0]["substance"].coding[0]["code"]}</TableCell>
+              <TableCell>{allergy["resource"].reaction[0]["substance"].coding[0]["display"]}</TableCell>
+              <TableCell>{allergy["resource"].reaction[1]["manifestation"][0].coding[0]["system"]}</TableCell>
+              <TableCell>{allergy["resource"].reaction[0]["substance"].coding[0]["code"]}</TableCell>
+              <TableCell>{allergy["resource"].reaction[0]["substance"].coding[0]["display"]}</TableCell>
             </TableRow>
              ))
            }
@@ -105,7 +100,7 @@ const ObservationTable = (props) => {
         variant="contained"
         color="primary"
         component={Link}
-        to="/observation"
+        to="/allergy-intolerance"
         size="small"
         className={classes.button}
       >
@@ -115,4 +110,4 @@ const ObservationTable = (props) => {
   );
 };
 
-export default ObservationTable;
+export default AllergyTable;
