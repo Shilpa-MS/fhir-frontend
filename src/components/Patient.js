@@ -62,6 +62,8 @@ const Patient = () => {
               variant="outlined"
               color="secondary"
               style={{ position: "absolute", top: "40%", left: "20em" }}
+              component={Link}
+              to="/view-patient-by-id"
             >
               View Patient by Id
             </Button>
