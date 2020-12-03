@@ -62,6 +62,8 @@ const Observation = () => {
               variant="outlined"
               color="secondary"
               style={{ position: "absolute", top: "50%", left: "20em" }}
+              component={Link}
+              to="/view-observation-by-id"
             >
               View Observations by Id
             </Button>

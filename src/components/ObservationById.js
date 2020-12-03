@@ -7,7 +7,6 @@ import axios from "./axios";
 import { useSnackbar } from "notistack";
 import { Card, CardActions, CardContent } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
@@ -29,25 +28,28 @@ const useStyles = makeStyles((theme) => ({
     marginRight:"1rem"
    
   },
+  subHeading:{
+      color:theme.palette.common.blue
+  }
 }));
 
-const PatientById = () => {
+const ObservationById = () => {
   const classes = useStyles();
   const [id, setId] = useState("");
-  const [patient, setPatient] = useState({});
+  const [observation, setObservation] = useState({});
   const [status, setStatus] = useState("loading");
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    const result = await axios.get(`Patient/${id}`);
+    const result = await axios.get(`Observation/${id}`);
     console.log("Search result is...", result);
     if (result.data.hasOwnProperty("issue")) {
       enqueueSnackbar("Invalid ID!");
     } else {
       setTimeout(()=>{      setStatus("Valid");
     },2000)
-      setPatient(result.data);
+      setObservation(result.data);
     }
   };
 
@@ -79,7 +81,7 @@ const PatientById = () => {
         variant="contained"
         color="primary"
         component={Link}
-        to="/patient"
+        to="/observation"
         size="small"
         className={classes.button}
       >
@@ -92,23 +94,23 @@ const PatientById = () => {
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h5" component="h2">
-                Patient Details
+                Observation Details
               </Typography>
               <hr/>
               <Typography>
                 <b>ID</b>&nbsp;
-                {patient["id"]}
+                {observation["id"]}
               </Typography>
               
-              <Typography><b>Test Date</b>&nbsp;{patient.identifier[0].period.start}</Typography>
-              <Typography><b>Assigner</b>&nbsp;{patient.identifier[0].assigner.display}</Typography>
-              <Typography><b>Active</b>&nbsp;{patient["active"].toString()}</Typography>
-              <Typography><b>Name</b>&nbsp;{patient.name[0].given.toString()}</Typography>
-              <Typography><b>Work</b>&nbsp;{patient.telecom[1].value.toString()}</Typography>
-              <Typography><b>Mobile</b>&nbsp;{patient.telecom[2].value.toString()}</Typography>
-
-              <Typography><b>Gender</b>&nbsp;{patient.gender.toString()}</Typography>
-              <Typography><b>DOB</b>&nbsp;{patient.birthDate}</Typography>
+              <Typography><b>Test Date</b>&nbsp;{observation.effectiveDateTime}</Typography>
+              <Typography variant="h6" component="h3" className={classes.subHeading}>Tag</Typography>
+              <Typography><b>System</b>&nbsp;{observation["meta"]["tag"][0]["system"]}</Typography>
+              <Typography><b>Code</b>&nbsp;{observation["meta"]["tag"][0]["code"]}</Typography>
+              <Typography><b>Display</b>&nbsp;{observation["meta"]["tag"][0]["display"]}</Typography>
+              <Typography variant="h6" component="h3" className={classes.subHeading}>Coding Category</Typography>
+              <Typography><b>System</b>&nbsp;{observation["category"][0]["coding"][0]["system"]}</Typography>
+              <Typography><b>Code</b>&nbsp;{observation["category"][0]["coding"][0]["code"]}</Typography>
+              <Typography><b>Display</b>&nbsp;{observation["category"][0]["coding"][0]["display"]}</Typography>
             </CardContent>
           </Card>
         </React.Fragment>
@@ -118,11 +120,6 @@ const PatientById = () => {
   );
 };
 
-PatientById.propTypes = {
-  patient: PropTypes.shape({
-    id: PropTypes.string,
-    identifier: PropTypes.array,
-  }),
-};
 
-export default PatientById;
+
+export default ObservationById;

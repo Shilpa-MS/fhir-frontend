@@ -51,7 +51,7 @@ const PatientTable = (props) => {
       <Typography variant="h4" className={classes.heading}>
         Patient Data
       </Typography>
-      {patients.length>0?(<TableContainer component={Paper}>
+      {patients?(<TableContainer component={Paper}>
         <Table className={classes.table} size="small">
           <TableHead>
             <TableRow>

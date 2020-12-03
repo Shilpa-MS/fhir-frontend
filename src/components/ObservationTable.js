@@ -40,7 +40,7 @@ const ObservationTable = (props) => {
     async function getPatient() {
       const request = await axios.get(`${props.path}`);
       setPatients(request.data.entry);
-      console.log(request.data.entry)
+      console.log("Request...",request.data.entry)
       return request;
     }
     getPatient();
@@ -53,7 +53,7 @@ const ObservationTable = (props) => {
       <Typography variant="h4" className={classes.heading}>
         Observation Data
       </Typography>
-      {patients.length>0?(<TableContainer component={Paper}>
+      {patients?(<TableContainer component={Paper}>
         <Table className={classes.table} size="small">
           <TableHead>
             <TableRow>
@@ -90,9 +90,16 @@ const ObservationTable = (props) => {
               <TableCell>{patient.resource.category[0].coding[0].system}</TableCell>
               <TableCell>{patient.resource.category[0].coding[0].code}</TableCell>
               <TableCell>{patient.resource.category[0].coding[0].display}</TableCell>
-              <TableCell>{patient.resource.code.coding[3].system}</TableCell>
-              <TableCell>Code</TableCell>
-              <TableCell>Display</TableCell>
+            
+              <TableCell>  {
+                patient.resource.code.coding.map(code=>(<React.Fragment>{code.system}<br/></React.Fragment>))
+              }</TableCell>
+              <TableCell>  {
+                patient.resource.code.coding.map(code=>(<React.Fragment>{code.code}<br/></React.Fragment>))
+              }</TableCell>
+              <TableCell>  {
+                patient.resource.code.coding.map(code=>(<React.Fragment>{code.display}<br/></React.Fragment>))
+              }</TableCell>
             </TableRow>
              ))
            }
