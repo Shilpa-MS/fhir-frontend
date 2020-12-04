@@ -86,8 +86,8 @@ const AllergyTable = (props) => {
               <TableCell>{allergy["resource"].reaction[0]["substance"].coding[0]["code"]}</TableCell>
               <TableCell>{allergy["resource"].reaction[0]["substance"].coding[0]["display"]}</TableCell>
               <TableCell>{allergy["resource"].reaction[1]["manifestation"][0].coding[0]["system"]}</TableCell>
-              <TableCell>{allergy["resource"].reaction[0]["substance"].coding[0]["code"]}</TableCell>
-              <TableCell>{allergy["resource"].reaction[0]["substance"].coding[0]["display"]}</TableCell>
+              <TableCell>{allergy["resource"].reaction[1]["manifestation"][0].coding[0]["code"]}</TableCell>
+              <TableCell>{allergy["resource"].reaction[1]["manifestation"][0].coding[0]["display"]}</TableCell>
             </TableRow>
              ))
            }

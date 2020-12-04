@@ -63,13 +63,10 @@ const PatientById = () => {
             
           />
           <IconButton
-            // variant="contained"
             type="submit"
             color="primary"
             disabled={id.length===0||id===" "}
-            // onClick={handleSearch}
-            // endIcon={<SearchIcon />}
-            // className={classes.button}
+           
           >
             <SearchIcon />
           </IconButton>
