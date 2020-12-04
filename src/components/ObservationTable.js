@@ -31,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     margin: "1rem",
   },
+  message:{
+    textAlign:"center",
+    color:theme.palette.common.red
+  }
 }));
 const ObservationTable = (props) => {
   const classes = useStyles();
@@ -39,7 +43,10 @@ const ObservationTable = (props) => {
   useEffect(() => {
     async function getPatient() {
       const request = await axios.get(`${props.path}`);
+      if(request.total!==0)
       setPatients(request.data.entry);
+      else
+      setPatients([])
       console.log("Request...",request.data.entry)
       return request;
     }
@@ -107,7 +114,7 @@ const ObservationTable = (props) => {
            
           </TableBody>
         </Table>
-      </TableContainer>):<LinearProgress/>}
+      </TableContainer>):<Typography className={classes.message}>No Record found!</Typography>}
       <Button
         variant="contained"
         color="primary"

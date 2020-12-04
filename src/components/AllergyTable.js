@@ -29,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     margin: "1rem",
   },
+  message:{
+    textAlign:"center",
+    color:theme.palette.common.red
+  }
 }));
 const AllergyTable = (props) => {
   const classes = useStyles();
@@ -37,7 +41,10 @@ const AllergyTable = (props) => {
   useEffect(() => {
     async function getPatient() {
       const request = await axios.get(`${props.path}`);
+      if(request.total!==0)
       setAllergy(request.data.entry);
+      else
+      setAllergy([]);
       console.log(request.data.entry)
       return request;
     }
@@ -51,7 +58,7 @@ const AllergyTable = (props) => {
       <Typography variant="h4" className={classes.heading}>
         Allergy Intolerance Data
       </Typography>
-      {allergy.length>0?(<TableContainer component={Paper}>
+      {allergy?(<TableContainer component={Paper}>
         <Table className={classes.table} size="small">
           <TableHead>
             <TableRow>
@@ -95,7 +102,7 @@ const AllergyTable = (props) => {
            
           </TableBody>
         </Table>
-      </TableContainer>):<LinearProgress/>}
+      </TableContainer>):<Typography className={classes.message}>No record found!</Typography>}
       <Button
         variant="contained"
         color="primary"

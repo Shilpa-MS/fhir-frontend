@@ -12,6 +12,11 @@ import { Link } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +41,7 @@ const PatientById = () => {
   const [id, setId] = useState("");
   const [patient, setPatient] = useState({});
   const [status, setStatus] = useState("loading");
+  const [open, setOpen] = React.useState(false);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const handleSearch = async (e) => {
@@ -49,6 +55,25 @@ const PatientById = () => {
     },2000)
       setPatient(result.data);
     }
+  };
+
+  const handleDelete = async () => {
+    const result = await axios.delete(`Patient/${id}`);
+    console.log("Search result is...", result);   
+      setTimeout(()=>{      setStatus("loading");
+      
+    },2000)
+      setPatient({});
+      enqueueSnackbar("Deleted successfully!");    
+  };
+
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -107,7 +132,31 @@ const PatientById = () => {
               <Typography><b>Gender</b>&nbsp;{patient.gender.toString()}</Typography>
               <Typography><b>DOB</b>&nbsp;{patient.birthDate}</Typography>
             </CardContent>
+            <CardActions>
+        <Button variant="contained" color="secondary"size="small" onClick={handleClickOpen}>Delete</Button>
+      </CardActions>
           </Card>
+          <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Are you sure you want to delete?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+           Confirm to delete patient data.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={()=>{handleClose();handleDelete();}} color="secondary" autoFocus>
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
         </React.Fragment>
       ) : <LinearProgress color="secondary"/>}
      

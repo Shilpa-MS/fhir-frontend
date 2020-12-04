@@ -30,15 +30,24 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     margin: "1rem",
   },
+  message:{
+    textAlign:"center",
+    color:theme.palette.common.red
+  }
 }));
 const PatientTable = (props) => {
   const classes = useStyles();
   const [patients, setPatients] = useState([]);
+  
 
   useEffect(() => {
     async function getPatient() {
       const request = await axios.get(`${props.path}`);
+      if(request.total!==0)
       setPatients(request.data.entry);
+      else
+      setPatients([]);
+      console.log("Request...",request.data)
       return request;
     }
     getPatient();
@@ -99,7 +108,7 @@ const PatientTable = (props) => {
            
           </TableBody>
         </Table>
-      </TableContainer>):<LinearProgress/>}
+      </TableContainer>):<Typography className={classes.message}>No data Found!</Typography>}
       <Button
         variant="contained"
         color="primary"
