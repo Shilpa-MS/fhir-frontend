@@ -62,6 +62,8 @@ const Allergy = () => {
               variant="outlined"
               color="secondary"
               style={{ position: "absolute", top: "50%", left: "20em" }}
+              component={Link}
+              to="/view-allergy-by-id"
             >
               View Allergies by Id
             </Button>
