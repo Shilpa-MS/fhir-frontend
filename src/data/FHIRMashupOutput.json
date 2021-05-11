@@ -1,0 +1,56 @@
+{
+   "patient":    {
+      "id": "17954df00b6-7b65928b-415c-4873-a078-8b39fd5e13b9",
+      "lastUpdatedDate": "2021-05-10T06:02:51.447Z",
+      "firstName": "Santhosh",
+      "lastName": "Ramanathan",
+      "gender": "male",
+      "birthDate": "1989-08-25",
+      "deceased": false
+   },
+   "observation":    {
+      "id": "a7668b17-6d0f-4324-a087-d0d686341cbe",
+      "category": "Vital Signs",
+      "description": "Body weight Measured",
+      "effectiveDateTime": "2016-03-28",
+      "valueQuantity":       {
+         "value": 185,
+         "unit": "lbs",
+         "system": "http://unitsofmeasure.org",
+         "code": "[lb_av]"
+      }
+   },
+   "encounter":    {
+      "id": "d4000ecf-3fe0-4fea-bd2e-e764868c816d",
+      "location":       {
+         "reference": "#home",
+         "description": "Client's home"
+      },
+      "status": "finished",
+      "period":       {
+         "start": "2015-01-17T16:00:00+10:00",
+         "end": "2015-01-17T16:30:00+10:00"
+      },
+      "practitioner":       {
+         "reference": "Practitioner/17954ed0933-2e11bf43-38d3-43b8-b883-648cb433c173",
+         "name": "Dr Adam Careful"
+      }
+   },
+   "allergyintolerance":    {
+      "id": "17954f044a4-91629b70-f4ac-472b-9ed0-c1bbe8ac7a1c",
+      "type": "allergy",
+      "category": "food",
+      "criticality": "high",
+      "onsetdatetime": "2004",
+      "recordedDate": "2014-10-09T14:58:00+11:00",
+      "recorderReference": "Practitioner/17954ed0933-2e11bf43-38d3-43b8-b883-648cb433c173",
+      "asserterReference": "Patient/17954df00b6-7b65928b-415c-4873-a078-8b39fd5e13b9",
+      "lastOccurrence": "2018-06",
+      "reaction":       {
+         "testSubstance": "cashew nut allergenic extract Injectable Product",
+         "description": "Challenge Protocol. Severe reaction to subcutaneous cashew extract. Epinephrine administered",
+         "onset": "2012-06-12",
+         "severity": "severe"
+      }
+   }
+}

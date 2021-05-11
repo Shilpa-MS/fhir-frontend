@@ -6,6 +6,6 @@
     { "name": "Insurance Plan", "link": "/insurance-plan","activeIndex":4 },
     { "name": "Observation", "link": "/observation" ,"activeIndex":5},
     { "name": "Encounter", "link": "/encounter","activeIndex":6 },
-    { "name": "Patient", "link": "/patient","activeIndex":7 }
-
+    { "name": "Patient", "link": "/patient","activeIndex":7 },
+    { "name": "Data Display", "link": "/display","activeIndex":8 }
   ]
