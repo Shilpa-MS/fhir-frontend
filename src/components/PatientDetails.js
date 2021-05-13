@@ -58,10 +58,10 @@ const PatientDetails = (props) => {
         {loaded?(<React.Fragment>
             <Grid item>
           <Grid container direction="column">
-            <Grid item>
-              <Typography variant="h6">Patient</Typography>
+            <Grid item style={{marginTop:"2em"}}>
+              <Typography variant="h6" gutterBottom>Patient</Typography>
             </Grid>
-            <Grid item>
+            <Grid item >
               <TableContainer>
                 <Table size="small">
                   <TableHead>
@@ -95,8 +95,8 @@ const PatientDetails = (props) => {
         </Grid>
         <Grid item>
           <Grid container direction="column">
-            <Grid item>
-              <Typography variant="h6">Observation</Typography>
+            <Grid item style={{marginTop:"2em"}}>
+              <Typography variant="h6" gutterBottom>Observation</Typography>
             </Grid>
             <Grid item>
               <TableContainer>
@@ -146,8 +146,8 @@ const PatientDetails = (props) => {
 
           <Grid item>
             <Grid container direction="column">
-              <Grid item>
-                <Typography variant="h6">Encounter</Typography>
+              <Grid item style={{marginTop:"2em"}}>
+                <Typography variant="h6" gutterBottom>Encounter</Typography>
               </Grid>
               <Grid item>
                 <TableContainer>
@@ -199,8 +199,8 @@ const PatientDetails = (props) => {
 
           <Grid item>
             <Grid container direction="column">
-              <Grid item>
-                <Typography variant="h6">Allergy Intolerance</Typography>
+              <Grid item style={{marginTop:"2em"}}>
+                <Typography variant="h6" gutterBottom>Allergy Intolerance</Typography>
               </Grid>
               <Grid item>
                 <TableContainer>
