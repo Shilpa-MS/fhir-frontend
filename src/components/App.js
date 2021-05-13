@@ -8,6 +8,7 @@ import Patient from './Patient';
 import AllergyIntolerance from './AllergyIntolerance';
 import PatientTable from './PatientTable';
 import PatientById from './PatientById';
+import PatientDetails from './PatientDetails';
 import ObservationTable from './ObservationTable';
 import ObservationById from './ObservationById';
 import AllergyTable from './AllergyTable';
@@ -39,6 +40,8 @@ function App() {
           <Route path="/patient" component={()=>(<Patient/>)}/>
           <Route path="/view-patients" component={()=>(<PatientTable path="Patient"/>)}/>
           <Route path="/view-patient-by-id" component={()=>(<PatientById path="Patient"/>)}/>
+          <Route path="/view-patient-info/:id" component={()=>(<PatientDetails path="fhirmashup?identifier="/>)}/>
+
           <Route path="/view-observations" component={()=>(<ObservationTable path="Observation"/>)}/>
           <Route path="/view-observation-by-id" component={()=>(<ObservationById path="Observation"/>)}/>
           <Route path="/view-allergy" component={()=>(<AllergyTable path="AllergyIntolerance"/>)}/>
