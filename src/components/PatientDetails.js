@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: "2em",
   },
+  cell:{
+    border : "1px solid black"
+  }
 }));
 
 const PatientDetails = (props) => {
@@ -63,26 +66,26 @@ const PatientDetails = (props) => {
             </Grid>
             <Grid item >
               <TableContainer>
-                <Table size="small">
+                <Table size="small" className={classes.cell}>
                   <TableHead>
                     <TableRow>
-                      <TableCell>ID</TableCell>
-                      <TableCell>Last Updated</TableCell>
-                      <TableCell>Firstname</TableCell>
-                      <TableCell>Lastname</TableCell>
-                      <TableCell>Gender</TableCell>
-                      <TableCell>Birthdate</TableCell>
-                      <TableCell>Deceased</TableCell>
+                      <TableCell className={classes.cell}>ID</TableCell>
+                      <TableCell className={classes.cell}>Last Updated</TableCell>
+                      <TableCell className={classes.cell}>Firstname</TableCell>
+                      <TableCell className={classes.cell}>Lastname</TableCell>
+                      <TableCell className={classes.cell}>Gender</TableCell>
+                      <TableCell className={classes.cell}>Birthdate</TableCell>
+                      <TableCell className={classes.cell}>Deceased</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     <TableRow>
-                      <TableCell>{data.patient.id}</TableCell>
-                      <TableCell>{data.patient.lastUpdatedDate}</TableCell>
-                      <TableCell>{data.patient.firstName}</TableCell>
-                      <TableCell>{data.patient.lastName}</TableCell>
-                      <TableCell>{data.patient.gender}</TableCell>
-                      <TableCell>{data.patient.birthDate}</TableCell>
+                      <TableCell className={classes.cell}>{data.patient.id}</TableCell>
+                      <TableCell className={classes.cell}>{data.patient.lastUpdatedDate}</TableCell>
+                      <TableCell className={classes.cell}>{data.patient.firstName}</TableCell>
+                      <TableCell className={classes.cell}>{data.patient.lastName}</TableCell>
+                      <TableCell className={classes.cell}>{data.patient.gender}</TableCell>
+                      <TableCell className={classes.cell}>{data.patient.birthDate}</TableCell>
                       <TableCell>
                         {data.patient.deceased ? "Yes" : "No"}
                       </TableCell>
@@ -100,41 +103,41 @@ const PatientDetails = (props) => {
             </Grid>
             <Grid item>
               <TableContainer>
-                <Table size="small">
+                <Table size="small" className={classes.cell}>
                   <TableHead>
                     <TableRow>
-                      <TableCell>ID</TableCell>
-                      <TableCell>Category</TableCell>
-                      <TableCell>Description</TableCell>
-                      <TableCell>Effective Date</TableCell>
-                      <TableCell colSpan={3}>Value Quantity</TableCell>
+                      <TableCell className={classes.cell}>ID</TableCell>
+                      <TableCell className={classes.cell}>Category</TableCell>
+                      <TableCell className={classes.cell}>Description</TableCell>
+                      <TableCell className={classes.cell}>Effective Date</TableCell>
+                      <TableCell colSpan={3} className={classes.cell}>Value Quantity</TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell colSpan={4}></TableCell>
-                      <TableCell>Value</TableCell>
-                      <TableCell>Unit</TableCell>
-                      <TableCell>System</TableCell>
-                      <TableCell>Code</TableCell>
+                      <TableCell colSpan={4} className={classes.cell}></TableCell>
+                      <TableCell className={classes.cell}>Value</TableCell>
+                      <TableCell className={classes.cell}>Unit</TableCell>
+                      <TableCell className={classes.cell}>System</TableCell>
+                      <TableCell className={classes.cell}>Code</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     <TableRow>
-                      <TableCell>{data.observation.id}</TableCell>
-                      <TableCell>{data.observation.category}</TableCell>
-                      <TableCell>{data.observation.description}</TableCell>
-                      <TableCell>
+                      <TableCell className={classes.cell}>{data.observation.id}</TableCell>
+                      <TableCell className={classes.cell}>{data.observation.category}</TableCell>
+                      <TableCell className={classes.cell}>{data.observation.description}</TableCell>
+                      <TableCell className={classes.cell}>
                         {data.observation.effectiveDateTime}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className={classes.cell}>
                         {data.observation.valueQuantity.value}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className={classes.cell}>
                         {data.observation.valueQuantity.unit}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className={classes.cell}>
                         {data.observation.valueQuantity.system}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className={classes.cell}>
                         {data.observation.valueQuantity.code}
                       </TableCell>
                     </TableRow>
@@ -151,42 +154,42 @@ const PatientDetails = (props) => {
               </Grid>
               <Grid item>
                 <TableContainer>
-                  <Table size="small">
+                  <Table size="small" className={classes.cell}>
                     <TableHead>
                       <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell colSpan={2}>Location</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell colSpan={2}>Period</TableCell>
-                        <TableCell colSpan={2}>Practitioner</TableCell>
+                        <TableCell className={classes.cell}>ID</TableCell>
+                        <TableCell colSpan={2} className={classes.cell}>Location</TableCell>
+                        <TableCell className={classes.cell}>Status</TableCell>
+                        <TableCell colSpan={2} className={classes.cell}>Period</TableCell>
+                        <TableCell colSpan={2} className={classes.cell}>Practitioner</TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell></TableCell>
-                        <TableCell>Reference</TableCell>
-                        <TableCell>Description</TableCell>
-                        <TableCell></TableCell>
-                        <TableCell>Start</TableCell>
-                        <TableCell>End</TableCell>
-                        <TableCell>Reference</TableCell>
-                        <TableCell>Name</TableCell>
+                        <TableCell className={classes.cell}></TableCell>
+                        <TableCell className={classes.cell}>Reference</TableCell>
+                        <TableCell className={classes.cell}>Description</TableCell>
+                        <TableCell className={classes.cell}></TableCell>
+                        <TableCell className={classes.cell}>Start</TableCell>
+                        <TableCell className={classes.cell}>End</TableCell>
+                        <TableCell className={classes.cell}>Reference</TableCell>
+                        <TableCell className={classes.cell}>Name</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       <TableRow>
-                        <TableCell>{data.encounter.id}</TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>{data.encounter.id}</TableCell>
+                        <TableCell className={classes.cell}>
                           {data.encounter.location.reference}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
                           {data.encounter.location.description}
                         </TableCell>
-                        <TableCell>{data.encounter.status}</TableCell>
-                        <TableCell>{data.encounter.period.start}</TableCell>
-                        <TableCell>{data.encounter.period.end}</TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>{data.encounter.status}</TableCell>
+                        <TableCell className={classes.cell}>{data.encounter.period.start}</TableCell>
+                        <TableCell className={classes.cell}>{data.encounter.period.end}</TableCell>
+                        <TableCell className={classes.cell}>
                           {data.encounter.practitioner.reference}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
                           {data.encounter.practitioner.name}
                         </TableCell>
                       </TableRow>
@@ -204,64 +207,64 @@ const PatientDetails = (props) => {
               </Grid>
               <Grid item>
                 <TableContainer>
-                  <Table size="small">
+                  <Table size="small" className={classes.cell}>
                     <TableHead>
                       <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Type</TableCell>
-                        <TableCell>Category</TableCell>
-                        <TableCell>Criticality</TableCell>
-                        <TableCell>Onset Date</TableCell>
-                        <TableCell>Recorded Date</TableCell>
-                        <TableCell>Recorder Reference</TableCell>
-                        <TableCell>Asserter Reference</TableCell>
-                        <TableCell>Last Occurance</TableCell>
-                        <TableCell colSpan={4}>Reaction</TableCell>
+                        <TableCell className={classes.cell}>ID</TableCell>
+                        <TableCell className={classes.cell}>Type</TableCell>
+                        <TableCell className={classes.cell}>Category</TableCell>
+                        <TableCell className={classes.cell}>Criticality</TableCell>
+                        <TableCell className={classes.cell}>Onset Date</TableCell>
+                        <TableCell className={classes.cell}>Recorded Date</TableCell>
+                        <TableCell className={classes.cell}>Recorder Reference</TableCell>
+                        <TableCell className={classes.cell}>Asserter Reference</TableCell>
+                        <TableCell className={classes.cell}>Last Occurance</TableCell>
+                        <TableCell className={classes.cell} colSpan={4}>Reaction</TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell colSpan={9}></TableCell>
-                        <TableCell>Test Substance</TableCell>
-                        <TableCell>Description</TableCell>
-                        <TableCell>Onset</TableCell>
-                        <TableCell>Severity</TableCell>
+                        <TableCell colSpan={9} className={classes.cell}></TableCell>
+                        <TableCell className={classes.cell}>Test Substance</TableCell>
+                        <TableCell className={classes.cell}>Description</TableCell>
+                        <TableCell className={classes.cell}>Onset</TableCell>
+                        <TableCell className={classes.cell}>Severity</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       <TableRow>
-                        <TableCell>{data.allergyintolerance.id}</TableCell>
-                        <TableCell>{data.allergyintolerance.type}</TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>{data.allergyintolerance.id}</TableCell>
+                        <TableCell className={classes.cell}>{data.allergyintolerance.type}</TableCell>
+                        <TableCell className={classes.cell}>
                           {data.allergyintolerance.category}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
                           {data.allergyintolerance.criticality}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
                           {data.allergyintolerance.onsetdatetime}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
                           {data.allergyintolerance.recordedDate}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
                           {data.allergyintolerance.recorderReference}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
                           {data.allergyintolerance.asserterReference}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
                           {data.allergyintolerance.lastOccurrence}
                         </TableCell>
 
-                        <TableCell>
+                        <TableCell className={classes.cell}>
                           {data.allergyintolerance.reaction.testSubstance}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
                           {data.allergyintolerance.reaction.description}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
                           {data.allergyintolerance.reaction.onset}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
                           {data.allergyintolerance.reaction.severity}
                         </TableCell>
                       </TableRow>
