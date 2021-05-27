@@ -7,5 +7,7 @@
     { "name": "Observation", "link": "/observation" ,"activeIndex":5},
     { "name": "Encounter", "link": "/encounter","activeIndex":6 },
     { "name": "Patient", "link": "/patient","activeIndex":7 },
-    { "name": "Data Display", "link": "/display","activeIndex":8 }
+    { "name": "Data Display", "link": "/display","activeIndex":8 },
+    { "name": "Medication Details", "link": "/medication-details","activeIndex":9 }
+
   ]

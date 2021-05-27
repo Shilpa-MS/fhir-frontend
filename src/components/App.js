@@ -14,6 +14,7 @@ import ObservationById from './ObservationById';
 import AllergyTable from './AllergyTable';
 import AllergyById from './AllergyById';
 import DataDisplay from './Datadisplay';
+import MedicationDetails from './MedicationDetails';
 
 
 import { SnackbarProvider } from 'notistack';
@@ -47,6 +48,7 @@ function App() {
           <Route path="/view-allergy" component={()=>(<AllergyTable path="AllergyIntolerance"/>)}/>
           <Route path="/view-allergy-by-id" component={()=>(<AllergyById path="AllergyIntolerance"/>)}/>
           <Route path="/display" component={()=>(<DataDisplay path="Display"/>)}/>
+          <Route path="/medication-details" component={()=>(<MedicationDetails path="identifier="/>)}/>
 
         </Switch>
         </BrowserRouter>
