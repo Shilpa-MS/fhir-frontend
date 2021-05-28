@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Typography, Button, TextField,Select } from "@material-ui/core";
+import { Grid, Typography, Button, TextField, Select } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Table,
@@ -18,11 +18,12 @@ import {
   DialogActions,
   DialogTitle,
   DialogContent,
-  MenuItem
+  MenuItem,
 } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import InputLabel from '@material-ui/core/InputLabel';
+import InputLabel from "@material-ui/core/InputLabel";
+import Alert from "@material-ui/lab/Alert";
 
 
 const instance = Axios.create({
@@ -46,8 +47,8 @@ const PatientDetails = (props) => {
   const [data, setPatient] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [openMed, setOpenMed] = useState(false);
-  const [disease,setDisease] = useState("");
-  const [med,setMed] = useState("");
+  const [disease, setDisease] = useState("");
+  const [med, setMed] = useState("");
   const [medicationData, setMedicationData] = useState({
     patientId: "",
     firstName: "",
@@ -58,6 +59,10 @@ const PatientDetails = (props) => {
     medicationDetails: "",
     dosageInstruction: "",
   });
+  const [openAlert,setOpenAlert]=useState(false);
+
+  const postUrl="http://fhiraddmedicationdetail-http-aceistio3.cloud-integration-ocp45-6fb0b86391cd68c8282858623a1dddff-0000.eu-gb.containers.appdomain.cloud:80/fhiraddmedicationservice/v1/medidata";
+
 
   useEffect(() => {
     async function getPatient() {
@@ -69,8 +74,8 @@ const PatientDetails = (props) => {
           patientId: request.data.patient.id,
           firstName: request.data.patient.firstName,
           lastName: request.data.patient.lastName,
-          practitionerId:request.data.encounter.practitioner.reference,
-          encounterId:request.data.encounter.id
+          practitionerId: request.data.encounter.practitioner.reference,
+          encounterId: request.data.encounter.id,
         });
         setLoaded(true);
       } else setPatient([]);
@@ -88,14 +93,36 @@ const PatientDetails = (props) => {
     setOpenMed(false);
   };
 
-  const handleDiseaseChange=(e)=>{
+  const handleDiseaseChange = (e) => {
     setDisease(e.target.value);
-    setMedicationData({...medicationData,disease:e.target.value})
-  }
+    setMedicationData({ ...medicationData, disease: e.target.value });
+  };
 
-  const handleMedChange=(e)=>{
+  const handleMedChange = (e) => {
     setMed(e.target.value);
-    setMedicationData({...medicationData,medicationDetails:e.target.value})
+    setMedicationData({ ...medicationData, medicationDetails: e.target.value });
+  };
+
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+
+    Axios.post(postUrl,{
+      patientId: medicationData.patientId,
+      firstName: medicationData.firstName,
+      lastName: medicationData.lastName,
+      practitionerId: medicationData.practitionerId,
+      encounterId: medicationData.encounterId,
+      disease: medicationData.disease,
+      medicationDetails: medicationData.medicationDetails,
+      dosageInstruction: medicationData.dosageInstruction,
+
+    }).then(res=>{
+      console.log("Post response is...",res);
+      setOpenAlert(true);
+    }).catch(err=>{
+      console.log("Error in post...",err)
+    })
+
   }
 
   const addMedDialog = (
@@ -171,44 +198,68 @@ const PatientDetails = (props) => {
           />
           <InputLabel id="demo-simple-select-label">Disease</InputLabel>
 
-          <Select
-          value={disease}
-          onChange={handleDiseaseChange}>
-            <MenuItem key="dis1" value="Oral Chemotherapy">Oral Chemotherapy</MenuItem>
-            <MenuItem key="dis2" value="Arthritis">Arthritis</MenuItem>
-            <MenuItem key="dis3" value="Fungal Infection">Fungal Infection</MenuItem>
-            <MenuItem key="dis4" value="Anxiety">Anxiety</MenuItem>
-            <MenuItem key="dis5" value="Bacterial Infection">Bacterial Infection</MenuItem>
+          <Select value={disease} onChange={handleDiseaseChange}>
+            <MenuItem key="dis1" value="Oral Chemotherapy">
+              Oral Chemotherapy
+            </MenuItem>
+            <MenuItem key="dis2" value="Arthritis">
+              Arthritis
+            </MenuItem>
+            <MenuItem key="dis3" value="Fungal Infection">
+              Fungal Infection
+            </MenuItem>
+            <MenuItem key="dis4" value="Anxiety">
+              Anxiety
+            </MenuItem>
+            <MenuItem key="dis5" value="Bacterial Infection">
+              Bacterial Infection
+            </MenuItem>
           </Select>
 
-          <InputLabel id="demo-simple-select-label">Medication Details</InputLabel>
+          <InputLabel id="demo-simple-select-label">
+            Medication Details
+          </InputLabel>
 
-<Select
-value={med}
-onChange={handleMedChange}>
-  <MenuItem key="med1" value="Capecitabine 500mg oral tablet (Xeloda)">Capecitabine 500mg oral tablet (Xeloda)</MenuItem>
-  <MenuItem key="med2" value="Prednisone (substance)">Prednisone (substance)</MenuItem>
-  <MenuItem key="med3" value="Nystatin">Fungal Infection</MenuItem>
-  <MenuItem key="med4" value="Anxiety">Anxiety</MenuItem>
-  <MenuItem key="med5" value="Bacterial Infection">Bacterial Infection</MenuItem>
-</Select>
+          <Select value={med} onChange={handleMedChange}>
+            <MenuItem
+              key="med1"
+              value="Capecitabine 500mg oral tablet (Xeloda)"
+            >
+              Capecitabine 500mg oral tablet (Xeloda)
+            </MenuItem>
+            <MenuItem key="med2" value="Prednisone (substance)">
+              Prednisone (substance)
+            </MenuItem>
+            <MenuItem key="med3" value="Nystatin">
+              Fungal Infection
+            </MenuItem>
+            <MenuItem key="med4" value="Anxiety">
+              Anxiety
+            </MenuItem>
+            <MenuItem key="med5" value="Bacterial Infection">
+              Bacterial Infection
+            </MenuItem>
+          </Select>
 
           <TextField
             id="password"
-            label="Password"
-            type="password"
+            label="Dosage Instruction"
+            type="name"
             fullWidth
             onChange={(e) =>
-              setMedicationData({ ...medicationData, email: e.target.value })
+              setMedicationData({
+                ...medicationData,
+                dosageInstruction: e.target.value,
+              })
             }
             color="primary"
             required
           />
         </DialogContent>
         <DialogActions>
-          <Button color="primary">Add</Button>
+          <Button color="primary" onClick={handleSubmit}>Add</Button>
         </DialogActions>
-        {/* {openAlert ? <Alert severity="error">{message}</Alert> : null} */}
+        {openAlert ? <Alert severity="success">Added successfully</Alert> : null}
       </Dialog>
     </React.Fragment>
   );
