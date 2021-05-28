@@ -113,9 +113,9 @@ const PatientTable = (props) => {
                 <Button component={Link} to={`/view-patient-info/${uniqid}`} className={classes.hyperlink} size="small">{patient.resource.identifier[0].value}</Button>
              
                 </TableCell>
-              <TableCell>{patient.resource.identifier[0].assigner.display}</TableCell>
-             <TableCell>{patient.resource.identifier[0].period.start}</TableCell>
-              <TableCell>{patient.resource.active.toString()}</TableCell>
+              <TableCell>{patient.resource.identifier[0].assigner?patient.resource.identifier[0].assigner["display"]:""}</TableCell>
+              <TableCell>{patient.resource.identifier[0].period?patient.resource.identifier[0].period["start"]:""}</TableCell>
+              <TableCell>{patient.resource.active?patient.resource.active.toString():""}</TableCell>
               <TableCell>{patient.resource.name[0].given[0]}</TableCell>
               <TableCell>{patient.resource.name[0].given[1]}</TableCell>
 
