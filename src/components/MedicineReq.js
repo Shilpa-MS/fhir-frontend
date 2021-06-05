@@ -63,7 +63,6 @@ const MedicineReq = () => {
         .get()
         .then((res) => {
           console.log("Res is...", res);
-          // const data = res.data;
           setResponse(res);
           console.log("Response is ...", response);
           setFetchSuccess(true);
