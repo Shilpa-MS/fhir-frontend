@@ -22,13 +22,17 @@ const useStyles = makeStyles((theme) => ({
     left: "2em",
     // fontWeight:100
   },
+  root:{
+    flexGrow:1,
+    padding:"3em"
+  }
 }));
 
 const Allergy = () => {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <div className={classes.container}>
+      {/* <div className={classes.container}>
         <Grid container direction="column">
           <img
             src="/allergy.jpg"
@@ -69,7 +73,34 @@ const Allergy = () => {
             </Button>
           </Grid>
         </Grid>
-      </div>
+      </div> */}
+       <Grid container direction="row" className={classes.root} alignItems="center" justify="space-evenly">
+        <Grid item>
+          <Typography variant="h4" gutterBottom align="center">Allergy Intolerance</Typography>
+          <Button
+              variant="contained"
+              color="secondary"
+              style={{ margin:"4em 2em" }}
+              component={Link}
+              to="/view-allergy"
+            >
+              View all Allergy
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ margin:"4em 0em" }}
+              component={Link}
+              to="/view-allergy-by-id"
+            >
+              View Allergies by Id
+            </Button>
+        </Grid>
+        <Grid item>
+          <img src="/11767-howard-peanut-allergy.gif" alt="Allergy" style={{width:"30em",height:"30em"}}/>
+        </Grid>
+      </Grid>
+      
     </React.Fragment>
   );
 };

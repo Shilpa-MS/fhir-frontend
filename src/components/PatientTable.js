@@ -22,10 +22,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow:1,
     padding:"3em"
   },
-  table: {
-    minWidth: 650,
-    maxWidth:1000
-  },
+
   heading: {
     color: theme.palette.common.blue,
     textAlign: "center",
@@ -44,6 +41,19 @@ const useStyles = makeStyles((theme) => ({
     textDecoration:"underline",
     color:theme.palette.common.red,
     textTransform:"none"
+  },
+  cell:{
+    border:"1px solid black",
+    padding:"0.3em"
+  },
+  cellHead:{
+    border:"1px solid black",
+    padding:"0.3em",
+    color:"white"
+  },
+  tableHead:{
+    background:theme.palette.common.bn2
+
   }
 }));
 const PatientTable = (props) => {
@@ -68,7 +78,7 @@ const PatientTable = (props) => {
 
   return (
     <React.Fragment>
-      <Grid container direction ="column">
+      <Grid container direction ="column" className={classes.root}>
         <Grid item>
         <Typography variant="h4" className={classes.heading}>
         Patient Data
@@ -79,21 +89,21 @@ const PatientTable = (props) => {
         
      
       {patients?(<TableContainer component={Paper}>
-        <Table className={classes.table} size="small">
-          <TableHead>
+        <Table className={classes.table} >
+          <TableHead className={classes.tableHead}>
             <TableRow>
-              <TableCell>FHIR ID</TableCell>
-              <TableCell>Unique ID</TableCell>
-              <TableCell>Assigner</TableCell>
-              <TableCell>Start Date</TableCell>
-              <TableCell>Active Status</TableCell>
-              <TableCell>Official First Name</TableCell>
-              <TableCell>Official Last Name</TableCell>
+              <TableCell className={classes.cellHead}>FHIR ID</TableCell>
+              <TableCell className={classes.cellHead}>Unique ID</TableCell>
+              <TableCell className={classes.cellHead}>Assigner</TableCell>
+              <TableCell className={classes.cellHead}>Start Date</TableCell>
+              <TableCell className={classes.cellHead}>Active Status</TableCell>
+              <TableCell className={classes.cellHead}>Official First Name</TableCell>
+              <TableCell className={classes.cellHead}>Official Last Name</TableCell>
 
-              <TableCell>Gender</TableCell>
-              <TableCell>BirthDate</TableCell>
-              <TableCell>Deceased Status</TableCell>
-              <TableCell>General Practitioner</TableCell>
+              <TableCell className={classes.cellHead}>Gender</TableCell>
+              <TableCell className={classes.cellHead}>BirthDate</TableCell>
+              <TableCell className={classes.cellHead}>Deceased Status</TableCell>
+              <TableCell className={classes.cellHead}>General Practitioner</TableCell>
 
 
             </TableRow>
@@ -105,24 +115,24 @@ const PatientTable = (props) => {
               const uniqid= patient.resource.identifier[0].value
               return (
               <TableRow>
-              <TableCell>
+              <TableCell className={classes.cell}>
               {patient.resource['id']}
               </TableCell>
-              <TableCell>
+              <TableCell className={classes.cell}>
                 
                 <Button component={Link} to={`/view-patient-info/${uniqid}`} className={classes.hyperlink} size="small">{patient.resource.identifier[0].value}</Button>
              
                 </TableCell>
-              <TableCell>{patient.resource.identifier[0].assigner?patient.resource.identifier[0].assigner["display"]:""}</TableCell>
-              <TableCell>{patient.resource.identifier[0].period?patient.resource.identifier[0].period["start"]:""}</TableCell>
-              <TableCell>{patient.resource.active?patient.resource.active.toString():""}</TableCell>
-              <TableCell>{patient.resource.name[0].given[0]}</TableCell>
-              <TableCell>{patient.resource.name[0].given[1]}</TableCell>
+              <TableCell className={classes.cell}>{patient.resource.identifier[0].assigner?patient.resource.identifier[0].assigner["display"]:""}</TableCell>
+              <TableCell className={classes.cell}>{patient.resource.identifier[0].period?patient.resource.identifier[0].period["start"]:""}</TableCell>
+              <TableCell className={classes.cell}>{patient.resource.active?patient.resource.active.toString():""}</TableCell>
+              <TableCell className={classes.cell}>{patient.resource.name[0].given[0]}</TableCell>
+              <TableCell className={classes.cell}>{patient.resource.name[0].given[1]}</TableCell>
 
-              <TableCell>{patient.resource.gender.toString()}</TableCell>
-              <TableCell>{patient.resource.birthDate}</TableCell>
-              <TableCell>{patient.resource.deceasedBoolean.toString()}</TableCell>
-              <TableCell>{patient.resource.generalPractitioner[0].reference}</TableCell>
+              <TableCell className={classes.cell}>{patient.resource.gender.toString()}</TableCell>
+              <TableCell className={classes.cell}>{patient.resource.birthDate}</TableCell>
+              <TableCell className={classes.cell}>{patient.resource.deceasedBoolean.toString()}</TableCell>
+              <TableCell className={classes.cell}>{patient.resource.generalPractitioner[0].reference}</TableCell>
             </TableRow>
              )})
            }

@@ -28,7 +28,7 @@ const Patient = () => {
 
   return (
     <React.Fragment>
-      <div className={classes.container}>
+      {/* <div className={classes.container}>
         <Grid container direction="column">
           <img
             src="/patient.svg"
@@ -69,7 +69,34 @@ const Patient = () => {
             </Button>
           </Grid>
         </Grid>
-      </div>
+      </div> */}
+
+      <Grid container direction="row" className={classes.root} alignItems="center" justify="space-evenly">
+        <Grid item>
+          <Typography variant="h4" gutterBottom align="center">Patient</Typography>
+          <Button
+              variant="contained"
+              color="secondary"
+              style={{ margin:"4em 2em" }}
+              component={Link}
+              to="/view-patients"
+            >
+              View all Patients
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ margin:"4em 0em" }}
+              component={Link}
+              to="/view-patient-by-id"
+            >
+              View Patient by Id
+            </Button>
+        </Grid>
+        <Grid item>
+          <img src="/18646-medic-clinic.gif" alt="Observation" style={{width:"30em",height:"30em"}}/>
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 };

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Roboto",
   },
   drawer: {
-    backgroundColor: theme.palette.common.blue,
+    backgroundColor: theme.palette.common.green,
   },
   drawerItem: {
     ...theme.typography.drawer,

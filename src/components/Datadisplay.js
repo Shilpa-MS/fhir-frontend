@@ -16,6 +16,27 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: "3em",
   },
+  cell: {
+    border: "1px solid black",
+    padding: "0.2em",
+  },
+  cellHead:{
+    border:"1px solid black",
+    padding:"0.2em",
+    color:"white"
+  },
+  patientHead:{
+    background:theme.palette.common.bn1
+  },
+  observationHead:{
+    background:theme.palette.common.bn2
+  },
+  encounterHead:{
+    background:theme.palette.common.bn3
+  },
+  allergyHead:{
+    background:theme.palette.common.bn4
+  }
 }));
 
 const Display = () => {
@@ -36,26 +57,40 @@ const Display = () => {
             <Grid item>
               <TableContainer>
                 <Table>
-                  <TableHead>
+                  <TableHead className={classes.patientHead}>
                     <TableRow>
-                      <TableCell>ID</TableCell>
-                      <TableCell>Last Updated</TableCell>
-                      <TableCell>Firstname</TableCell>
-                      <TableCell>Lastname</TableCell>
-                      <TableCell>Gender</TableCell>
-                      <TableCell>Birthdate</TableCell>
-                      <TableCell>Deceased</TableCell>
+                      <TableCell className={classes.cellHead}>ID</TableCell>
+                      <TableCell className={classes.cellHead}>
+                        Last Updated
+                      </TableCell>
+                      <TableCell className={classes.cellHead}>Firstname</TableCell>
+                      <TableCell className={classes.cellHead}>Lastname</TableCell>
+                      <TableCell className={classes.cellHead}>Gender</TableCell>
+                      <TableCell className={classes.cellHead}>Birthdate</TableCell>
+                      <TableCell className={classes.cellHead}>Deceased</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     <TableRow>
-                      <TableCell>{data.patient.id}</TableCell>
-                      <TableCell>{data.patient.lastUpdatedDate}</TableCell>
-                      <TableCell>{data.patient.firstName}</TableCell>
-                      <TableCell>{data.patient.lastName}</TableCell>
-                      <TableCell>{data.patient.gender}</TableCell>
-                      <TableCell>{data.patient.birthDate}</TableCell>
-                      <TableCell>
+                      <TableCell className={classes.cell}>
+                        {data.patient.id}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {data.patient.lastUpdatedDate}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {data.patient.firstName}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {data.patient.lastName}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {data.patient.gender}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {data.patient.birthDate}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
                         {data.patient.deceased ? "Yes" : "No"}
                       </TableCell>
                     </TableRow>
@@ -65,7 +100,7 @@ const Display = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid item style={{padding:"2em 0"}}>
           <Grid container direction="column">
             <Grid item>
               <Typography variant="h6">Observation</Typography>
@@ -73,40 +108,55 @@ const Display = () => {
             <Grid item>
               <TableContainer>
                 <Table>
-                  <TableHead>
+                  <TableHead className={classes.observationHead}>
                     <TableRow>
-                      <TableCell>ID</TableCell>
-                      <TableCell>Category</TableCell>
-                      <TableCell>Description</TableCell>
-                      <TableCell>Effective Date</TableCell>
-                      <TableCell colSpan={3}>Value Quantity</TableCell>
+                      <TableCell className={classes.cellHead}>ID</TableCell>
+                      <TableCell className={classes.cellHead}>Category</TableCell>
+                      <TableCell className={classes.cellHead}>
+                        Description
+                      </TableCell>
+                      <TableCell className={classes.cellHead}>
+                        Effective Date
+                      </TableCell>
+                      <TableCell colSpan={4} className={classes.cellHead}>
+                        Value Quantity
+                      </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell colSpan={4}></TableCell>
-                      <TableCell>Value</TableCell>
-                      <TableCell>Unit</TableCell>
-                      <TableCell>System</TableCell>
-                      <TableCell>Code</TableCell>
+                      <TableCell
+                        colSpan={4}
+                        className={classes.cellHead}
+                      ></TableCell>
+                      <TableCell className={classes.cellHead}>Value</TableCell>
+                      <TableCell className={classes.cellHead}>Unit</TableCell>
+                      <TableCell className={classes.cellHead}>System</TableCell>
+                      <TableCell className={classes.cellHead}>Code</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     <TableRow>
-                      <TableCell>{data.observation.id}</TableCell>
-                      <TableCell>{data.observation.category}</TableCell>
-                      <TableCell>{data.observation.description}</TableCell>
-                      <TableCell>
+                      <TableCell className={classes.cell}>
+                        {data.observation.id}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {data.observation.category}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {data.observation.description}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
                         {data.observation.effectiveDateTime}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className={classes.cell}>
                         {data.observation.valueQuantity.value}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className={classes.cell}>
                         {data.observation.valueQuantity.unit}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className={classes.cell}>
                         {data.observation.valueQuantity.system}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className={classes.cell}>
                         {data.observation.valueQuantity.code}
                       </TableCell>
                     </TableRow>
@@ -116,7 +166,7 @@ const Display = () => {
             </Grid>
           </Grid>
 
-          <Grid item>
+          <Grid item style={{padding:"2em 0"}}>
             <Grid container direction="column">
               <Grid item>
                 <Typography variant="h6">Encounter</Typography>
@@ -124,41 +174,61 @@ const Display = () => {
               <Grid item>
                 <TableContainer>
                   <Table>
-                    <TableHead>
+                    <TableHead className={classes.encounterHead}>
                       <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell colSpan={2}>Location</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell colSpan={2}>Period</TableCell>
-                        <TableCell colSpan={2}>Practitioner</TableCell>
+                        <TableCell className={classes.cellHead}>ID</TableCell>
+                        <TableCell colSpan={2} className={classes.cellHead}>
+                          Location
+                        </TableCell>
+                        <TableCell className={classes.cellHead}>Status</TableCell>
+                        <TableCell colSpan={2} className={classes.cellHead}>
+                          Period
+                        </TableCell>
+                        <TableCell colSpan={2} className={classes.cellHead}>
+                          Practitioner
+                        </TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell></TableCell>
-                        <TableCell>Reference</TableCell>
-                        <TableCell>Description</TableCell>
-                        <TableCell></TableCell>
-                        <TableCell>Start</TableCell>
-                        <TableCell>End</TableCell>
-                        <TableCell>Reference</TableCell>
-                        <TableCell>Name</TableCell>
+                        <TableCell className={classes.cellHead}></TableCell>
+                        <TableCell className={classes.cellHead}>
+                          Reference
+                        </TableCell>
+                        <TableCell className={classes.cellHead}>
+                          Description
+                        </TableCell>
+                        <TableCell className={classes.cell}></TableCell>
+                        <TableCell className={classes.cellHead}>Start</TableCell>
+                        <TableCell className={classes.cellHead}>End</TableCell>
+                        <TableCell className={classes.cellHead}>
+                          Reference
+                        </TableCell>
+                        <TableCell className={classes.cellHead}>Name</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       <TableRow>
-                        <TableCell>{data.encounter.id}</TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
+                          {data.encounter.id}
+                        </TableCell>
+                        <TableCell className={classes.cell}>
                           {data.encounter.location.reference}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
                           {data.encounter.location.description}
                         </TableCell>
-                        <TableCell>{data.encounter.status}</TableCell>
-                        <TableCell>{data.encounter.period.start}</TableCell>
-                        <TableCell>{data.encounter.period.end}</TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
+                          {data.encounter.status}
+                        </TableCell>
+                        <TableCell className={classes.cell}>
+                          {data.encounter.period.start}
+                        </TableCell>
+                        <TableCell className={classes.cell}>
+                          {data.encounter.period.end}
+                        </TableCell>
+                        <TableCell className={classes.cell}>
                           {data.encounter.practitioner.reference}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={classes.cell}>
                           {data.encounter.practitioner.name}
                         </TableCell>
                       </TableRow>
@@ -172,55 +242,94 @@ const Display = () => {
           <Grid item>
             <Grid container direction="column">
               <Grid item>
-                <Typography variant="h6">Allergy Intolerance</Typography>
+                <Typography variant="h6" >Allergy Intolerance</Typography>
               </Grid>
               <Grid item>
                 <TableContainer>
                   <Table>
-                    <TableHead>
+                    <TableHead className={classes.allergyHead}>
                       <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Type</TableCell>
-                        <TableCell>Category</TableCell>
-                        <TableCell>Criticality</TableCell>
-                        <TableCell>Onset Date</TableCell>
-                        <TableCell>Recorded Date</TableCell>
-                        <TableCell>Recorder Reference</TableCell>
-                        <TableCell>Asserter Reference</TableCell>
-                        <TableCell>Last Occurance</TableCell>
-                        <TableCell colSpan={4}>Reaction</TableCell>
+                        <TableCell className={classes.cellHead}>ID</TableCell>
+                        <TableCell className={classes.cellHead}>Type</TableCell>
+                        <TableCell className={classes.cellHead}>Category</TableCell>
+                        <TableCell className={classes.cellHead}>
+                          Criticality
+                        </TableCell>
+                        <TableCell className={classes.cellHead}>
+                          Onset Date
+                        </TableCell>
+                        <TableCell className={classes.cellHead}>
+                          Recorded Date
+                        </TableCell>
+                        <TableCell className={classes.cellHead}>
+                          Recorder Reference
+                        </TableCell>
+                        <TableCell className={classes.cellHead}>
+                          Asserter Reference
+                        </TableCell>
+                        <TableCell className={classes.cellHead}>
+                          Last Occurance
+                        </TableCell>
+                        <TableCell className={classes.cellHead} colSpan={4}>
+                          Reaction
+                        </TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell colSpan={9}></TableCell>
-                        <TableCell>Test Substance</TableCell>
-                        <TableCell>Description</TableCell>
-                        <TableCell>Onset</TableCell>
-                        <TableCell>Severity</TableCell>
+                        <TableCell
+                          className={classes.cellHead}
+                          colSpan={9}
+                        ></TableCell>
+                        <TableCell className={classes.cellHead}>
+                          Test Substance
+                        </TableCell>
+                        <TableCell className={classes.cellHead}>
+                          Description
+                        </TableCell>
+                        <TableCell className={classes.cellHead}>Onset</TableCell>
+                        <TableCell className={classes.cellHead}>Severity</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       <TableRow>
-                        <TableCell>{data.allergyintolerance.id}</TableCell>
-                        <TableCell>{data.allergyintolerance.type}</TableCell>
-                        <TableCell>{data.allergyintolerance.category}</TableCell>
-                        <TableCell>{data.allergyintolerance.criticality}</TableCell>
-                        <TableCell>{data.allergyintolerance.onsetdatetime}</TableCell>
-                        <TableCell>{data.allergyintolerance.recordedDate}</TableCell>
-                        <TableCell>{data.allergyintolerance.recorderReference}</TableCell>
-                        <TableCell>{data.allergyintolerance.asserterReference}</TableCell>
-                        <TableCell>{data.allergyintolerance.lastOccurrence}</TableCell>
+                        <TableCell className={classes.cell}>
+                          {data.allergyintolerance.id}
+                        </TableCell>
+                        <TableCell className={classes.cell}>
+                          {data.allergyintolerance.type}
+                        </TableCell>
+                        <TableCell className={classes.cell}>
+                          {data.allergyintolerance.category}
+                        </TableCell>
+                        <TableCell className={classes.cell}>
+                          {data.allergyintolerance.criticality}
+                        </TableCell>
+                        <TableCell className={classes.cell}>
+                          {data.allergyintolerance.onsetdatetime}
+                        </TableCell>
+                        <TableCell className={classes.cell}>
+                          {data.allergyintolerance.recordedDate}
+                        </TableCell>
+                        <TableCell className={classes.cell}>
+                          {data.allergyintolerance.recorderReference}
+                        </TableCell>
+                        <TableCell className={classes.cell}>
+                          {data.allergyintolerance.asserterReference}
+                        </TableCell>
+                        <TableCell className={classes.cell}>
+                          {data.allergyintolerance.lastOccurrence}
+                        </TableCell>
 
-                        <TableCell>
-                          {data.allergyintolerance.reaction.testSubstance }
+                        <TableCell className={classes.cell}>
+                          {data.allergyintolerance.reaction.testSubstance}
                         </TableCell>
-                        <TableCell>
-                          {data.allergyintolerance.reaction.description }
+                        <TableCell className={classes.cell}>
+                          {data.allergyintolerance.reaction.description}
                         </TableCell>
-                        <TableCell>
-                          {data.allergyintolerance.reaction.onset }
+                        <TableCell className={classes.cell}>
+                          {data.allergyintolerance.reaction.onset}
                         </TableCell>
-                        <TableCell>
-                          {data.allergyintolerance.reaction.severity }
+                        <TableCell className={classes.cell}>
+                          {data.allergyintolerance.reaction.severity}
                         </TableCell>
                       </TableRow>
                     </TableBody>

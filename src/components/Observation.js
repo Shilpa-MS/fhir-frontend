@@ -22,13 +22,17 @@ const useStyles = makeStyles((theme) => ({
     left: "2em",
     // fontWeight:100
   },
+  root:{
+    flexGrow:1,
+    padding:"3em"
+  }
 }));
 
 const Observation = () => {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <div className={classes.container}>
+      {/* <div className={classes.container}>
         <Grid container direction="column">
           <img
             src="/observation.jpeg"
@@ -69,7 +73,33 @@ const Observation = () => {
             </Button>
           </Grid>
         </Grid>
-      </div>
+      </div> */}
+      <Grid container direction="row" className={classes.root} alignItems="center" justify="space-evenly">
+        <Grid item>
+          <Typography variant="h4" gutterBottom align="center">Observation</Typography>
+          <Button
+              variant="contained"
+              color="secondary"
+              style={{ margin:"4em 2em" }}
+              component={Link}
+              to="/view-observations"
+            >
+              View all Observations
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ margin:"4em 0em" }}
+              component={Link}
+              to="/view-observation-by-id"
+            >
+              View Observations by Id
+            </Button>
+        </Grid>
+        <Grid item>
+          <img src="/21474-medical-frontliners.gif" alt="Observation" style={{width:"30em",height:"30em"}}/>
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 };
