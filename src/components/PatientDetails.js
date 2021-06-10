@@ -28,7 +28,7 @@ import Alert from "@material-ui/lab/Alert";
 
 const instance = Axios.create({
   baseURL:
-    "http://fhirmashup-cors-http-aceistio3.cloud-integration-ocp45-6fb0b86391cd68c8282858623a1dddff-0000.eu-gb.containers.appdomain.cloud/",
+    "http://fhirmashuprestapi-http-ace.cp4i2021-tcs-jumpstart-6fb0b86391cd68c8282858623a1dddff-0000.eu-gb.containers.appdomain.cloud/fhirmashupservice/v1/fhirdata?",
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +38,25 @@ const useStyles = makeStyles((theme) => ({
   },
   cell: {
     border: "1px solid black",
+    padding:"0.2em"
   },
+  cellHead: {
+    border: "1px solid black",
+    padding:"0.2em",
+    color:"white"
+  },
+  patientHead:{
+    background:theme.palette.common.bn1
+  },
+  observationHead:{
+    background:theme.palette.common.bn2
+  },
+  encounterHead:{
+    background:theme.palette.common.bn3
+  },
+  allergyHead:{
+    background:theme.palette.common.bn4
+  }
 }));
 
 const PatientDetails = (props) => {
@@ -61,7 +79,7 @@ const PatientDetails = (props) => {
   });
   const [openAlert,setOpenAlert]=useState(false);
 
-  const postUrl="http://fhiraddmedicationdetail-http-aceistio3.cloud-integration-ocp45-6fb0b86391cd68c8282858623a1dddff-0000.eu-gb.containers.appdomain.cloud:80/fhiraddmedicationservice/v1/medidata";
+  const postUrl="http://fhiraddmedicationdata-http-ace.cp4i2021-tcs-jumpstart-6fb0b86391cd68c8282858623a1dddff-0000.eu-gb.containers.appdomain.cloud/fhiraddmedicationservice/v1/medidata";
 
 
   useEffect(() => {
@@ -230,14 +248,14 @@ const PatientDetails = (props) => {
             <MenuItem key="med2" value="Prednisone (substance)">
               Prednisone (substance)
             </MenuItem>
-            <MenuItem key="med3" value="Nystatin">
-              Fungal Infection
+            <MenuItem key="med3" value="Nystatin 100,000 units/ml oral suspension">
+            Nystatin 100,000 units/ml oral suspension
             </MenuItem>
-            <MenuItem key="med4" value="Anxiety">
-              Anxiety
+            <MenuItem key="med4" value="Alprazolam 0.25mg Oral Tablet">
+            Alprazolam 0.25mg Oral Tablet
             </MenuItem>
-            <MenuItem key="med5" value="Bacterial Infection">
-              Bacterial Infection
+            <MenuItem key="med5" value="Amoxilin">
+            Amoxilin
             </MenuItem>
           </Select>
 
@@ -291,24 +309,24 @@ const PatientDetails = (props) => {
                 </Grid>
                 <Grid item>
                   <TableContainer>
-                    <Table size="small" className={classes.cell}>
-                      <TableHead>
+                    <Table  className={classes.cell}>
+                      <TableHead className={classes.patientHead}>
                         <TableRow>
-                          <TableCell className={classes.cell}>ID</TableCell>
-                          <TableCell className={classes.cell}>
+                          <TableCell className={classes.cellHead}>ID</TableCell>
+                          <TableCell className={classes.cellHead}>
                             Last Updated
                           </TableCell>
-                          <TableCell className={classes.cell}>
+                          <TableCell className={classes.cellHead}>
                             Firstname
                           </TableCell>
-                          <TableCell className={classes.cell}>
+                          <TableCell className={classes.cellHead}>
                             Lastname
                           </TableCell>
-                          <TableCell className={classes.cell}>Gender</TableCell>
-                          <TableCell className={classes.cell}>
+                          <TableCell className={classes.cellHead}>Gender</TableCell>
+                          <TableCell className={classes.cellHead}>
                             Birthdate
                           </TableCell>
-                          <TableCell className={classes.cell}>
+                          <TableCell className={classes.cellHead}>
                             Deceased
                           </TableCell>
                         </TableRow>
@@ -333,7 +351,7 @@ const PatientDetails = (props) => {
                           <TableCell className={classes.cell}>
                             {data.patient.birthDate}
                           </TableCell>
-                          <TableCell>
+                          <TableCell className={classes.cell}>
                             {data.patient.deceased ? "Yes" : "No"}
                           </TableCell>
                         </TableRow>
@@ -352,32 +370,32 @@ const PatientDetails = (props) => {
                 </Grid>
                 <Grid item>
                   <TableContainer>
-                    <Table size="small" className={classes.cell}>
-                      <TableHead>
+                    <Table  >
+                      <TableHead className={classes.observationHead}>
                         <TableRow>
-                          <TableCell className={classes.cell}>ID</TableCell>
-                          <TableCell className={classes.cell}>
+                          <TableCell className={classes.cellHead}>ID</TableCell>
+                          <TableCell className={classes.cellHead}>
                             Category
                           </TableCell>
-                          <TableCell className={classes.cell}>
+                          <TableCell className={classes.cellHead}>
                             Description
                           </TableCell>
-                          <TableCell className={classes.cell}>
+                          <TableCell className={classes.cellHead}>
                             Effective Date
                           </TableCell>
-                          <TableCell colSpan={3} className={classes.cell}>
+                          <TableCell colSpan={4} className={classes.cellHead}>
                             Value Quantity
                           </TableCell>
                         </TableRow>
                         <TableRow>
                           <TableCell
                             colSpan={4}
-                            className={classes.cell}
+                            className={classes.cellHead}
                           ></TableCell>
-                          <TableCell className={classes.cell}>Value</TableCell>
-                          <TableCell className={classes.cell}>Unit</TableCell>
-                          <TableCell className={classes.cell}>System</TableCell>
-                          <TableCell className={classes.cell}>Code</TableCell>
+                          <TableCell className={classes.cellHead}>Value</TableCell>
+                          <TableCell className={classes.cellHead}>Unit</TableCell>
+                          <TableCell className={classes.cellHead}>System</TableCell>
+                          <TableCell className={classes.cellHead}>Code</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -422,40 +440,40 @@ const PatientDetails = (props) => {
                   </Grid>
                   <Grid item>
                     <TableContainer>
-                      <Table size="small" className={classes.cell}>
-                        <TableHead>
+                      <Table  >
+                        <TableHead className={classes.encounterHead}>
                           <TableRow>
-                            <TableCell className={classes.cell}>ID</TableCell>
-                            <TableCell colSpan={2} className={classes.cell}>
+                            <TableCell className={classes.cellHead}>ID</TableCell>
+                            <TableCell colSpan={2} className={classes.cellHead}>
                               Location
                             </TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}>
                               Status
                             </TableCell>
-                            <TableCell colSpan={2} className={classes.cell}>
+                            <TableCell colSpan={2} className={classes.cellHead}>
                               Period
                             </TableCell>
-                            <TableCell colSpan={2} className={classes.cell}>
+                            <TableCell colSpan={2} className={classes.cellHead}>
                               Practitioner
                             </TableCell>
                           </TableRow>
                           <TableRow>
-                            <TableCell className={classes.cell}></TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}></TableCell>
+                            <TableCell className={classes.cellHead}>
                               Reference
                             </TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}>
                               Description
                             </TableCell>
-                            <TableCell className={classes.cell}></TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}></TableCell>
+                            <TableCell className={classes.cellHead}>
                               Start
                             </TableCell>
-                            <TableCell className={classes.cell}>End</TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}>End</TableCell>
+                            <TableCell className={classes.cellHead}>
                               Reference
                             </TableCell>
-                            <TableCell className={classes.cell}>Name</TableCell>
+                            <TableCell className={classes.cellHead}>Name</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
@@ -501,51 +519,51 @@ const PatientDetails = (props) => {
                   </Grid>
                   <Grid item>
                     <TableContainer>
-                      <Table size="small" className={classes.cell}>
-                        <TableHead>
+                      <Table >
+                        <TableHead  className={classes.allergyHead}>
                           <TableRow>
-                            <TableCell className={classes.cell}>ID</TableCell>
-                            <TableCell className={classes.cell}>Type</TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}>ID</TableCell>
+                            <TableCell className={classes.cellHead}>Type</TableCell>
+                            <TableCell className={classes.cellHead}>
                               Category
                             </TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}>
                               Criticality
                             </TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}>
                               Onset Date
                             </TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}>
                               Recorded Date
                             </TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}>
                               Recorder Reference
                             </TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}>
                               Asserter Reference
                             </TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}>
                               Last Occurance
                             </TableCell>
-                            <TableCell className={classes.cell} colSpan={4}>
+                            <TableCell className={classes.cellHead} colSpan={4}>
                               Reaction
                             </TableCell>
                           </TableRow>
                           <TableRow>
                             <TableCell
                               colSpan={9}
-                              className={classes.cell}
+                              className={classes.cellHead}
                             ></TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}>
                               Test Substance
                             </TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}>
                               Description
                             </TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}>
                               Onset
                             </TableCell>
-                            <TableCell className={classes.cell}>
+                            <TableCell className={classes.cellHead}>
                               Severity
                             </TableCell>
                           </TableRow>

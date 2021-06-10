@@ -14,7 +14,6 @@ import Button from "@material-ui/core/Button";
 import { Link,withRouter} from "react-router-dom";
 import axios from "./axios";
 import LinearProgress from '@material-ui/core/LinearProgress';
-import PatientDetails from "./PatientDetails";
 
 
 const useStyles = makeStyles((theme) => ({

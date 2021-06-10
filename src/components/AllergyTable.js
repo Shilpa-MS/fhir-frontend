@@ -8,12 +8,12 @@ import {
   TableRow,
   Paper,
 } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
+import {Typography,Grid} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import axios from "./axios";
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -23,15 +23,22 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.common.blue,
     textAlign: "center",
     fontWeight: 200,
-    margin: "2rem",
   },
   button: {
     marginRight: "auto",
-    margin: "1rem",
+    marginTop: "1rem",
   },
-  message:{
-    textAlign:"center",
-    color:theme.palette.common.red
+  message: {
+    textAlign: "center",
+    color: theme.palette.common.red,
+  },
+  cell:{
+    border:"1px solid black",
+    padding:"0.1em"
+  },
+  root:{
+    flexGrow:1,
+    padding:"3em"
   }
 }));
 const AllergyTable = (props) => {
@@ -41,71 +48,115 @@ const AllergyTable = (props) => {
   useEffect(() => {
     async function getPatient() {
       const request = await axios.get(`${props.path}`);
-      if(request.total!==0)
-      setAllergy(request.data.entry);
-      else
-      setAllergy([]);
-      console.log(request.data.entry)
+      if (request.total !== 0) setAllergy(request.data.entry);
+      else setAllergy([]);
+      console.log(request.data.entry);
       return request;
     }
     getPatient();
   }, [props.path]);
 
-
-
   return (
     <React.Fragment>
-      <Typography variant="h4" className={classes.heading}>
+      <Grid container className={classes.root} direction="column">
+        <Grid item>
+        <Typography variant="h4" className={classes.heading} gutterBottom>
         Allergy Intolerance Data
       </Typography>
-      {allergy?(<TableContainer component={Paper}>
-        <Table className={classes.table} size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell colSpan={5}>ID</TableCell>
-              <TableCell colSpan={3}>Substance</TableCell>
-              <TableCell colSpan={3}>Manifestation</TableCell>           
-            </TableRow>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell>Last Occurance</TableCell>
-              <TableCell>Categories</TableCell>
-              <TableCell>Criticality</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>System</TableCell>
-              <TableCell>Code</TableCell>
-              <TableCell>Display</TableCell>
-              <TableCell>System</TableCell>
-              <TableCell>Code</TableCell>
-              <TableCell>Display</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-           {
-             allergy.map(allergy=>(
+        </Grid>
+        <Grid item>
+        {allergy ? (
+        <TableContainer component={Paper}>
+          <Table  >
+            <TableHead>
               <TableRow>
-              <TableCell>{allergy["resource"]["id"]}</TableCell>
-              <TableCell>{allergy["resource"]["lastOccurrence"]}</TableCell>
-              <TableCell>{allergy["resource"]["category"]}</TableCell>
-              <TableCell>{allergy["resource"]["criticality"]}</TableCell>
-              <TableCell>{allergy["resource"].note[0]["text"]}</TableCell>
-              <TableCell>{allergy["resource"].reaction[0]["substance"].coding[0]["system"]}</TableCell>
-              <TableCell>{allergy["resource"].reaction[0]["substance"].coding[0]["code"]}</TableCell>
-              <TableCell>{allergy["resource"].reaction[0]["substance"].coding[0]["display"]}</TableCell>
-              <TableCell>{allergy["resource"].reaction[1]["manifestation"][0].coding[0]["system"]}</TableCell>
-              <TableCell>{allergy["resource"].reaction[1]["manifestation"][0].coding[0]["code"]}</TableCell>
-              <TableCell>{allergy["resource"].reaction[1]["manifestation"][0].coding[0]["display"]}</TableCell>
-            </TableRow>
-             ))
-           }
+                <TableCell className={classes.cell}>ID</TableCell>
+                <TableCell className={classes.cell}>Last Occurance</TableCell>
+                <TableCell className={classes.cell}>Categories</TableCell>
+                <TableCell className={classes.cell}>Criticality</TableCell>
+                <TableCell className={classes.cell}>Description</TableCell>
+                <TableCell colSpan={3} className={classes.cell}>Substance</TableCell>
+                <TableCell colSpan={3} className={classes.cell}>Manifestation</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className={classes.cell}></TableCell>
+                <TableCell className={classes.cell}></TableCell>
+                <TableCell className={classes.cell}></TableCell>
+                <TableCell className={classes.cell}></TableCell>
+                <TableCell className={classes.cell}></TableCell>
 
-           
-          </TableBody>
-        </Table>
-      </TableContainer>):<Typography className={classes.message}>No record found!</Typography>}
-      <Button
+                <TableCell className={classes.cell}>System</TableCell>
+                <TableCell className={classes.cell}>Code</TableCell>
+                <TableCell className={classes.cell}>Display</TableCell>
+                <TableCell className={classes.cell}>System</TableCell>
+                <TableCell className={classes.cell}>Code</TableCell>
+                <TableCell className={classes.cell}>Display</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {allergy.map((allergy) => (
+                <TableRow>
+                  <TableCell className={classes.cell}>{allergy["resource"]["id"]}</TableCell>
+                  <TableCell className={classes.cell}>{allergy["resource"]["lastOccurrence"]}</TableCell>
+                  <TableCell className={classes.cell}>{allergy["resource"]["category"]}</TableCell>
+                  <TableCell className={classes.cell}>{allergy["resource"]["criticality"]}</TableCell>
+                  <TableCell className={classes.cell}>
+                    {allergy["resource"].note
+                      ? allergy["resource"].note[0]["text"]
+                      : ""}
+                  </TableCell>
+                  <TableCell className={classes.cell}>
+                    {allergy["resource"].reaction[0]["substance"]
+                      ? allergy["resource"].reaction[0]["substance"].coding[0][
+                          "system"
+                        ]
+                      : ""}
+                  </TableCell>
+                  <TableCell className={classes.cell}>
+                    {allergy["resource"].reaction[0]["substance"]?
+                      allergy["resource"].reaction[0]["substance"].coding[0][
+                        "code"
+                      ]:""
+                    }
+                  </TableCell>
+                  <TableCell className={classes.cell}>
+                    {allergy["resource"].reaction[0]["substance"]?
+                      allergy["resource"].reaction[0]["substance"].coding[0][
+                        "display"
+                      ]:""
+                    }
+                  </TableCell>
+                  <TableCell className={classes.cell}>
+                     {allergy["resource"].reaction[1]?
+                      allergy["resource"].reaction[1]["manifestation"][0]
+                        .coding[0]["system"]:""
+                    }
+                  </TableCell>
+                  <TableCell className={classes.cell}>
+                    {allergy["resource"].reaction[1]?
+                      allergy["resource"].reaction[1]["manifestation"][0]
+                        .coding[0]["code"]:""
+                    }
+                  </TableCell>
+                  <TableCell className={classes.cell}>
+                    {allergy["resource"].reaction[1]?
+                      allergy["resource"].reaction[1]["manifestation"][0]
+                        .coding[0]["display"]:""
+                    }
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <Typography className={classes.message}>No record found!</Typography>
+      )}
+        </Grid>
+        <Grid item>
+        <Button
         variant="contained"
-        color="primary"
+        color="secondary"
         component={Link}
         to="/allergy-intolerance"
         size="small"
@@ -113,6 +164,11 @@ const AllergyTable = (props) => {
       >
         Back
       </Button>
+        </Grid>
+      </Grid>
+     
+     
+     
     </React.Fragment>
   );
 };

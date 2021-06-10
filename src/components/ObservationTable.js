@@ -8,33 +8,33 @@ import {
   TableRow,
   Paper,
 } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
+import { Typography, Button, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import axios from "./axios";
-import LinearProgress from '@material-ui/core/LinearProgress';
-
 
 const useStyles = makeStyles((theme) => ({
-  table: {
-    minWidth: 650,
-    
+  root: {
+    flexGrow: 1,
+    padding: "2em",
   },
   heading: {
     color: theme.palette.common.blue,
     textAlign: "center",
     fontWeight: 200,
-    margin: "2rem",
   },
   button: {
     marginRight: "auto",
-    margin: "1rem",
+    marginTop: "1rem",
   },
-  message:{
-    textAlign:"center",
-    color:theme.palette.common.red
-  }
+  message: {
+    textAlign: "center",
+    color: theme.palette.common.red,
+  },
+  cell: {
+    border: "1px solid black",
+    padding: "0.1em",
+  },
 }));
 const ObservationTable = (props) => {
   const classes = useStyles();
@@ -43,88 +43,145 @@ const ObservationTable = (props) => {
   useEffect(() => {
     async function getPatient() {
       const request = await axios.get(`${props.path}`);
-      if(request.total!==0)
-      setPatients(request.data.entry);
-      else
-      setPatients([])
-      console.log("Request...",request.data.entry)
+      if (request.total !== 0) setPatients(request.data.entry);
+      else setPatients([]);
+      console.log("Request...", request.data.entry);
       return request;
     }
     getPatient();
   }, [props.path]);
 
-
-
   return (
     <React.Fragment>
-      <Typography variant="h4" className={classes.heading}>
-        Observation Data
-      </Typography>
-      {patients?(<TableContainer component={Paper}>
-        <Table className={classes.table} size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Test Date</TableCell>
-              <TableCell colSpan={3}>Tag</TableCell>
-              <TableCell colSpan={3}>Coding Category</TableCell>
-              <TableCell colSpan={3}>Coding</TableCell>
-             
-            </TableRow>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell>System</TableCell>
-              <TableCell>Code</TableCell>
-              <TableCell>Display</TableCell>
-              <TableCell>System</TableCell>
-              <TableCell>Code</TableCell>
-              <TableCell>Display</TableCell>
-              <TableCell>System</TableCell>
-              <TableCell>Code</TableCell>
-              <TableCell>Display</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-           {
-             patients.map(patient=>(
-              <TableRow>
-              <TableCell>{patient.resource.id}</TableCell>
-              <TableCell>{patient.resource.effectiveDateTime}</TableCell>
-              <TableCell>{patient.resource.meta.tag[0].system}</TableCell>
-              <TableCell>{patient.resource.meta.tag[0].code}</TableCell>
-              <TableCell>{patient.resource.meta.tag[0].display}</TableCell>
-              <TableCell>{patient.resource.category[0].coding[0].system}</TableCell>
-              <TableCell>{patient.resource.category[0].coding[0].code}</TableCell>
-              <TableCell>{patient.resource.category[0].coding[0].display}</TableCell>
-            
-              <TableCell>  {
-                patient.resource.code.coding.map(code=>(<React.Fragment>{code.system}<br/></React.Fragment>))
-              }</TableCell>
-              <TableCell>  {
-                patient.resource.code.coding.map(code=>(<React.Fragment>{code.code}<br/></React.Fragment>))
-              }</TableCell>
-              <TableCell>  {
-                patient.resource.code.coding.map(code=>(<React.Fragment>{code.display}<br/></React.Fragment>))
-              }</TableCell>
-            </TableRow>
-             ))
-           }
+      <Grid container className={classes.root} direction="column">
+        <Grid item>
+          <Typography variant="h4" className={classes.heading} gutterBottom>
+            Observation Data
+          </Typography>
+        </Grid>
+        <Grid item>
+          {patients ? (
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell className={classes.cell}>ID</TableCell>
+                    <TableCell className={classes.cell}>Test Date</TableCell>
+                    <TableCell className={classes.cell} colSpan={3}>
+                      Tag
+                    </TableCell>
+                    <TableCell className={classes.cell} colSpan={3}>
+                      Coding Category
+                    </TableCell>
+                    <TableCell className={classes.cell} colSpan={3}>
+                      Coding
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className={classes.cell}></TableCell>
+                    <TableCell className={classes.cell}></TableCell>
+                    <TableCell className={classes.cell}>System</TableCell>
+                    <TableCell className={classes.cell}>Code</TableCell>
+                    <TableCell className={classes.cell}>Display</TableCell>
+                    <TableCell className={classes.cell}>System</TableCell>
+                    <TableCell className={classes.cell}>Code</TableCell>
+                    <TableCell className={classes.cell}>Display</TableCell>
+                    <TableCell className={classes.cell}>System</TableCell>
+                    <TableCell className={classes.cell}>Code</TableCell>
+                    <TableCell className={classes.cell}>Display</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {patients.map((patient) => (
+                    <TableRow>
+                      <TableCell className={classes.cell}>
+                        {patient.resource.id}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {patient.resource.effectiveDateTime}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {patient.resource.meta.tag
+                          ? patient.resource.meta.tag[0].system
+                          : ""}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {patient.resource.meta.tag
+                          ? patient.resource.meta.tag[0].code
+                          : ""}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {patient.resource.meta.tag
+                          ? patient.resource.meta.tag[0].display
+                          : ""}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {patient.resource.category
+                          ? patient.resource.category[0].coding[0].system
+                          : ""}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {patient.resource.category
+                          ? patient.resource.category[0].coding[0].code
+                          : ""}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {patient.resource.category
+                          ? patient.resource.category[0].coding[0].display
+                          : ""}
+                      </TableCell>
 
-           
-          </TableBody>
-        </Table>
-      </TableContainer>):<Typography className={classes.message}>No Record found!</Typography>}
-      <Button
-        variant="contained"
-        color="primary"
-        component={Link}
-        to="/observation"
-        size="small"
-        className={classes.button}
-      >
-        Back
-      </Button>
+                      <TableCell className={classes.cell}>
+                        {" "}
+                        {patient.resource.code.coding.map((code) => (
+                          <React.Fragment>
+                            {code.system}
+                            <br />
+                          </React.Fragment>
+                        ))}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {" "}
+                        {patient.resource.code.coding.map((code) => (
+                          <React.Fragment>
+                            {code.code}
+                            <br />
+                          </React.Fragment>
+                        ))}
+                      </TableCell>
+                      <TableCell className={classes.cell}>
+                        {" "}
+                        {patient.resource.code.coding.map((code) => (
+                          <React.Fragment>
+                            {code.display}
+                            <br />
+                          </React.Fragment>
+                        ))}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          ) : (
+            <Typography className={classes.message}>
+              No Record found!
+            </Typography>
+          )}
+        </Grid>
+        <Grid item>
+          <Button
+            variant="contained"
+            color="primary"
+            component={Link}
+            to="/observation"
+            size="small"
+            className={classes.button}
+          >
+            Back
+          </Button>
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 };
