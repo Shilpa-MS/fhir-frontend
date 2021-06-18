@@ -3,9 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
-import axios from "./axios";
+import axios from "axios";
 import { useSnackbar } from "notistack";
-import { Card, CardActions, CardContent } from "@material-ui/core";
+import { Card, CardContent } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
@@ -18,10 +18,13 @@ const useStyles = makeStyles((theme) => ({
     //   margin: theme.spacing(1),
     //   width: "25ch",
     // },
-    flexGrow:1
+    flexGrow:1,
+    padding:"2em",
+ 
   },
   card: {
     minWidth: 275,
+    margin:"0 3em"
   },
   button: {
     marginLeft: "auto",
@@ -33,24 +36,36 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const baseURL="http://node-to-fhir-server-git-fhir.cp4i2021-tcs-jumpstart-6fb0b86391cd68c8282858623a1dddff-0000.eu-gb.containers.appdomain.cloud/AllergyIntolerance?patient="
+
 const AllergyById = (props) => {
   const classes = useStyles();
   const [id, setId] = useState("");
   const [allergy, setAllergy] = useState({});
   const [status, setStatus] = useState("loading");
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    const result = await axios.get(`${props.path}/${id}`);
-    console.log("Search result is...", result);
-    if (result.data.hasOwnProperty("issue")) {
-      enqueueSnackbar("Invalid ID!");
-    } else {
-      setTimeout(()=>{      setStatus("Valid");
-    },2000)
-      setAllergy(result.data);
-    }
+    const instance = axios.create({ baseURL: baseURL + id });
+    await instance
+      .get()
+      .then((res) => {
+        if (res.data.total > 0) {
+          setAllergy(res.data.entry[0]);
+          console.log("Fetch success...", res.data);
+          console.log("Patient is...", allergy);
+          setTimeout(() => {
+            setStatus("Valid");
+          }, 2000);
+        } else {
+          enqueueSnackbar("Invalid ID!");
+        }
+      })
+      .catch((err) => {
+        console.log("Fetch error...", err);
+      });
+
   };
 
   return (
@@ -99,20 +114,20 @@ const AllergyById = (props) => {
               <hr/>
               <Typography>
                 <b>ID</b>&nbsp;
-                {allergy["id"]}
+                {allergy.resource["id"]}
               </Typography>
-              <Typography><b>Last Occurrence</b>&nbsp;{allergy["lastOccurrence"]}</Typography>
-              <Typography><b>Categories</b>&nbsp;{allergy["category"]}</Typography>
-              <Typography><b>Criticality</b>&nbsp;{allergy["criticality"]}</Typography>
-              <Typography><b>Description</b>&nbsp;{allergy.note[0]["text"]}</Typography>
+              <Typography><b>Last Occurrence</b>&nbsp;{allergy.resource["lastOccurrence"]}</Typography>
+              <Typography><b>Categories</b>&nbsp;{allergy.resource["category"]}</Typography>
+              <Typography><b>Criticality</b>&nbsp;{allergy.resource["criticality"]}</Typography>
+              <Typography><b>Description</b>&nbsp;{allergy.resource.note[0]["text"]}</Typography>
               <Typography variant="h6" component="h3" className={classes.subHeading}>Substance</Typography>
-              <Typography><b>System</b>&nbsp;{allergy.reaction[0]["substance"].coding[0]["system"]}</Typography>
-              <Typography><b>Code</b>&nbsp;{allergy.reaction[0]["substance"].coding[0]["code"]}</Typography>
-              <Typography><b>Display</b>&nbsp;{allergy.reaction[0]["substance"].coding[0]["display"]}</Typography>
+              <Typography><b>System</b>&nbsp;{allergy.resource.reaction[0]["substance"].coding[0]["system"]}</Typography>
+              <Typography><b>Code</b>&nbsp;{allergy.resource.reaction[0]["substance"].coding[0]["code"]}</Typography>
+              <Typography><b>Display</b>&nbsp;{allergy.resource.reaction[0]["substance"].coding[0]["display"]}</Typography>
               <Typography variant="h6" component="h3" className={classes.subHeading}>Manifestation</Typography>
-              <Typography><b>System</b>&nbsp;{allergy.reaction[1]["manifestation"][0].coding[0]["system"]}</Typography>
-              <Typography><b>Code</b>&nbsp;{allergy.reaction[1]["manifestation"][0].coding[0]["code"]}</Typography>
-              <Typography><b>Display</b>&nbsp;{allergy.reaction[1]["manifestation"][0].coding[0]["display"]}</Typography>
+              <Typography><b>System</b>&nbsp;{allergy.resource.reaction[1]["manifestation"][0].coding[0]["system"]}</Typography>
+              <Typography><b>Code</b>&nbsp;{allergy.resource.reaction[1]["manifestation"][0].coding[0]["code"]}</Typography>
+              <Typography><b>Display</b>&nbsp;{allergy.resource.reaction[1]["manifestation"][0].coding[0]["display"]}</Typography>
             </CardContent>
           </Card>
         </React.Fragment>

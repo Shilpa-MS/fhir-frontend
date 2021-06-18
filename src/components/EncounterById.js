@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     minWidth: 275,
+    margin:"0 3em"
   },
   button: {
     marginLeft: "auto",
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const baseURL =
-  "http://node-to-fhir-server-git-fhir.cp4i2021-tcs-jumpstart-6fb0b86391cd68c8282858623a1dddff-0000.eu-gb.containers.appdomain.cloud/Patient?identifier=";
+  "http://node-to-fhir-server-git-fhir.cp4i2021-tcs-jumpstart-6fb0b86391cd68c8282858623a1dddff-0000.eu-gb.containers.appdomain.cloud/Encounter?patient=";
 
 const PatientById = () => {
   const classes = useStyles();
@@ -113,7 +114,7 @@ const PatientById = () => {
           variant="contained"
           color="primary"
           component={Link}
-          to="/patient"
+          to="/encounter"
           size="small"
           className={classes.button}
         >
@@ -126,7 +127,7 @@ const PatientById = () => {
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h5" component="h2">
-                Patient Details
+                Encounter Details
               </Typography>
               <hr />
               <Typography>
@@ -135,35 +136,30 @@ const PatientById = () => {
               </Typography>
 
               <Typography>
-                <b>Test Date</b>&nbsp;
-                {patient.resource.identifier[0].period.start}
+                <b>Status</b>&nbsp;
+                {patient.resource.status}
               </Typography>
               <Typography>
-                <b>Assigner</b>&nbsp;
-                {patient.resource.identifier[0].assigner.display}
+                <b>Class</b>&nbsp;
+                {patient.resource.class.display}
               </Typography>
               <Typography>
-                <b>Active</b>&nbsp;{patient.resource["active"].toString()}
+                <b>Subject</b>&nbsp;{patient.resource.subject.reference}
               </Typography>
               <Typography>
-                <b>Name</b>&nbsp;{patient.resource.name[0].given.toString()}
+                <b>Reference</b>&nbsp;{patient.resource.participant[0].individual.reference}
               </Typography>
               <Typography>
-                <b>Work</b>&nbsp;{patient.resource.telecom[1].value.toString()}
+                <b>Name</b>&nbsp;{patient.resource.participant[0].individual.display}
               </Typography>
               <Typography>
-                <b>Mobile</b>&nbsp;
-                {patient.resource.telecom[2].value.toString()}
+                <b>Location</b>&nbsp;
+                {patient.resource.location[0].location.display}
               </Typography>
 
-              <Typography>
-                <b>Gender</b>&nbsp;{patient.resource.gender}
-              </Typography>
-              <Typography>
-                <b>DOB</b>&nbsp;{patient["resource"].birthDate}
-              </Typography>
+            
             </CardContent>
-            <CardActions>
+            {/* <CardActions>
               <Button
                 variant="contained"
                 color="secondary"
@@ -172,7 +168,7 @@ const PatientById = () => {
               >
                 Delete
               </Button>
-            </CardActions>
+            </CardActions> */}
           </Card>
           <Dialog
             open={open}

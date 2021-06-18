@@ -47,14 +47,14 @@ const useStyles = makeStyles((theme) => ({
   cellHead:{
     border:"1px solid black",
     padding:"0.3em",
-    color:"white"
+    color:"black"
   },
   tableHead:{
-    background:theme.palette.common.bn2
+    background:theme.palette.common.bn3
 
   }
 }));
-const PatientTable = (props) => {
+const EncounterTable = (props) => {
   const classes = useStyles();
   const [patients, setPatients] = useState([]);
   
@@ -79,7 +79,7 @@ const PatientTable = (props) => {
       <Grid container direction ="column" className={classes.root}>
         <Grid item>
         <Typography variant="h4" className={classes.heading}>
-        Patient Data
+        Encounter Data
       </Typography>
         </Grid>
         <Grid item>
@@ -90,47 +90,41 @@ const PatientTable = (props) => {
         <Table className={classes.table} >
           <TableHead className={classes.tableHead}>
             <TableRow>
-              <TableCell className={classes.cellHead}>FHIR ID</TableCell>
-              <TableCell className={classes.cellHead}>Unique ID</TableCell>
-              <TableCell className={classes.cellHead}>Assigner</TableCell>
-              <TableCell className={classes.cellHead}>Start Date</TableCell>
-              <TableCell className={classes.cellHead}>Active Status</TableCell>
-              <TableCell className={classes.cellHead}>Official First Name</TableCell>
-              <TableCell className={classes.cellHead}>Official Last Name</TableCell>
-
-              <TableCell className={classes.cellHead}>Gender</TableCell>
-              <TableCell className={classes.cellHead}>BirthDate</TableCell>
-              <TableCell className={classes.cellHead}>Deceased Status</TableCell>
-              <TableCell className={classes.cellHead}>General Practitioner</TableCell>
-
-
+              <TableCell className={classes.cellHead}>ID</TableCell>
+              <TableCell className={classes.cellHead}>Status</TableCell>
+              <TableCell className={classes.cellHead}>Class</TableCell>
+              <TableCell className={classes.cellHead}>Subject</TableCell>
+              <TableCell className={classes.cellHead} colSpan={2}>Participant</TableCell>
+              <TableCell className={classes.cellHead}>Location</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className={classes.cellHead}></TableCell>
+              <TableCell className={classes.cellHead}></TableCell>
+              <TableCell className={classes.cellHead}></TableCell>
+              <TableCell className={classes.cellHead}></TableCell>
+              <TableCell className={classes.cellHead} >Reference</TableCell>
+              <TableCell className={classes.cellHead}>Name</TableCell>
+              <TableCell className={classes.cellHead}></TableCell>
             </TableRow>
            
           </TableHead>
           <TableBody>
            {
              patients.map(patient=>{
-              const uniqid= patient.resource.identifier[0].value
               return (
               <TableRow>
               <TableCell className={classes.cell}>
               {patient.resource['id']}
               </TableCell>
-              <TableCell className={classes.cell}>
-                
-                <Button component={Link} to={`/view-patient-info/${uniqid}`} className={classes.hyperlink} size="small">{patient.resource.identifier[0].value}</Button>
-             
-                </TableCell>
-              <TableCell className={classes.cell}>{patient.resource.identifier[0].assigner?patient.resource.identifier[0].assigner["display"]:""}</TableCell>
-              <TableCell className={classes.cell}>{patient.resource.identifier[0].period?patient.resource.identifier[0].period["start"]:""}</TableCell>
-              <TableCell className={classes.cell}>{patient.resource.active?patient.resource.active.toString():""}</TableCell>
-              <TableCell className={classes.cell}>{patient.resource.name[0].given[0]}</TableCell>
-              <TableCell className={classes.cell}>{patient.resource.name[0].given[1]}</TableCell>
+         
+              <TableCell className={classes.cell}>{patient.resource.status}</TableCell>
+              <TableCell className={classes.cell}>{patient.resource.class.display}</TableCell>
+              <TableCell className={classes.cell}>{patient.resource.subject.reference}</TableCell>
+              <TableCell className={classes.cell}>{patient.resource.participant[0].individual.reference}</TableCell>
+              <TableCell className={classes.cell}>{patient.resource.participant[0].individual.display}</TableCell>
 
-              <TableCell className={classes.cell}>{patient.resource.gender.toString()}</TableCell>
-              <TableCell className={classes.cell}>{patient.resource.birthDate}</TableCell>
-              <TableCell className={classes.cell}>{patient.resource.deceasedBoolean.toString()}</TableCell>
-              <TableCell className={classes.cell}>{patient.resource.generalPractitioner[0].reference}</TableCell>
+              <TableCell className={classes.cell}>{patient.resource.location[0].location.display}</TableCell>
+              
             </TableRow>
              )})
            }
@@ -141,9 +135,9 @@ const PatientTable = (props) => {
       </TableContainer>):<Typography className={classes.message}>No data Found!</Typography>}
       <Button
         variant="contained"
-        color="primary"
+        color="secondary"
         component={Link}
-        to="/patient"
+        to="/encounter"
         size="small"
         className={classes.button}
       >
@@ -155,4 +149,4 @@ const PatientTable = (props) => {
   );
 };
 
-export default withRouter(PatientTable);
+export default withRouter(EncounterTable);

@@ -3,9 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
-import axios from "./axios";
+import axios from "axios";
 import { useSnackbar } from "notistack";
-import { Card, CardActions, CardContent } from "@material-ui/core";
+import { Card, CardContent } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
@@ -18,10 +18,12 @@ const useStyles = makeStyles((theme) => ({
     //   margin: theme.spacing(1),
     //   width: "25ch",
     // },
-    flexGrow:1
+    flexGrow:1,
+    padding:"3em"
   },
   card: {
-    minWidth: 275,
+    // minWidth: 275,
+    margin:"0 3em"
   },
   button: {
     marginLeft: "auto",
@@ -33,24 +35,36 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const baseURL="http://node-to-fhir-server-git-fhir.cp4i2021-tcs-jumpstart-6fb0b86391cd68c8282858623a1dddff-0000.eu-gb.containers.appdomain.cloud/Observation?patient=";
+
 const ObservationById = () => {
   const classes = useStyles();
   const [id, setId] = useState("");
   const [observation, setObservation] = useState({});
   const [status, setStatus] = useState("loading");
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    const result = await axios.get(`Observation/${id}`);
-    console.log("Search result is...", result);
-    if (result.data.hasOwnProperty("issue")) {
-      enqueueSnackbar("Invalid ID!");
-    } else {
-      setTimeout(()=>{      setStatus("Valid");
-    },2000)
-      setObservation(result.data);
-    }
+    const instance = axios.create({ baseURL: baseURL + id });
+    await instance
+      .get()
+      .then((res) => {
+        if (res.data.total > 0) {
+          setObservation(res.data.entry[0]);
+          console.log("Fetch success...", res.data);
+          console.log("Patient is...", observation);
+          setTimeout(() => {
+            setStatus("Valid");
+          }, 2000);
+        } else {
+          enqueueSnackbar("Invalid ID!");
+        }
+      })
+      .catch((err) => {
+        console.log("Fetch error...", err);
+      });
+
   };
 
   return (
@@ -99,18 +113,18 @@ const ObservationById = () => {
               <hr/>
               <Typography>
                 <b>ID</b>&nbsp;
-                {observation["id"]}
+                {observation.resource["id"]}
               </Typography>
               
-              <Typography><b>Test Date</b>&nbsp;{observation.effectiveDateTime}</Typography>
+              <Typography><b>Test Date</b>&nbsp;{observation.resource.effectiveDateTime}</Typography>
               <Typography variant="h6" component="h3" className={classes.subHeading}>Tag</Typography>
-              <Typography><b>System</b>&nbsp;{observation["meta"]["tag"][0]["system"]}</Typography>
-              <Typography><b>Code</b>&nbsp;{observation["meta"]["tag"][0]["code"]}</Typography>
-              <Typography><b>Display</b>&nbsp;{observation["meta"]["tag"][0]["display"]}</Typography>
+              <Typography><b>System</b>&nbsp;{observation.resource["meta"]["tag"][0]["system"]}</Typography>
+              <Typography><b>Code</b>&nbsp;{observation.resource["meta"]["tag"][0]["code"]}</Typography>
+              <Typography><b>Display</b>&nbsp;{observation.resource["meta"]["tag"][0]["display"]}</Typography>
               <Typography variant="h6" component="h3" className={classes.subHeading}>Coding Category</Typography>
-              <Typography><b>System</b>&nbsp;{observation["category"][0]["coding"][0]["system"]}</Typography>
-              <Typography><b>Code</b>&nbsp;{observation["category"][0]["coding"][0]["code"]}</Typography>
-              <Typography><b>Display</b>&nbsp;{observation["category"][0]["coding"][0]["display"]}</Typography>
+              <Typography><b>System</b>&nbsp;{observation.resource["category"][0]["coding"][0]["system"]}</Typography>
+              <Typography><b>Code</b>&nbsp;{observation.resource["category"][0]["coding"][0]["code"]}</Typography>
+              <Typography><b>Display</b>&nbsp;{observation.resource["category"][0]["coding"][0]["display"]}</Typography>
             </CardContent>
           </Card>
         </React.Fragment>

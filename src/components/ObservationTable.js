@@ -33,7 +33,14 @@ const useStyles = makeStyles((theme) => ({
   },
   cell: {
     border: "1px solid black",
-    padding: "0.1em",
+    padding: "0.1em 0.01em",
+    fontSize:"0.8rem"
+  },
+  cellHead:{
+    border:"1px solid black",
+    padding: "0.1em 0.01em",
+    color:"black",
+    background:theme.palette.common.bn2
   },
 }));
 const ObservationTable = (props) => {
@@ -65,30 +72,30 @@ const ObservationTable = (props) => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell className={classes.cell}>ID</TableCell>
-                    <TableCell className={classes.cell}>Test Date</TableCell>
-                    <TableCell className={classes.cell} colSpan={3}>
+                    <TableCell className={classes.cellHead}>ID</TableCell>
+                    <TableCell className={classes.cellHead}>Test Date</TableCell>
+                    <TableCell className={classes.cellHead} colSpan={3}>
                       Tag
                     </TableCell>
-                    <TableCell className={classes.cell} colSpan={3}>
+                    <TableCell className={classes.cellHead} colSpan={3}>
                       Coding Category
                     </TableCell>
-                    <TableCell className={classes.cell} colSpan={3}>
+                    <TableCell className={classes.cellHead} colSpan={3}>
                       Coding
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell className={classes.cell}></TableCell>
-                    <TableCell className={classes.cell}></TableCell>
-                    <TableCell className={classes.cell}>System</TableCell>
-                    <TableCell className={classes.cell}>Code</TableCell>
-                    <TableCell className={classes.cell}>Display</TableCell>
-                    <TableCell className={classes.cell}>System</TableCell>
-                    <TableCell className={classes.cell}>Code</TableCell>
-                    <TableCell className={classes.cell}>Display</TableCell>
-                    <TableCell className={classes.cell}>System</TableCell>
-                    <TableCell className={classes.cell}>Code</TableCell>
-                    <TableCell className={classes.cell}>Display</TableCell>
+                    <TableCell className={classes.cellHead}></TableCell>
+                    <TableCell className={classes.cellHead}></TableCell>
+                    <TableCell className={classes.cellHead}>System</TableCell>
+                    <TableCell className={classes.cellHead}>Code</TableCell>
+                    <TableCell className={classes.cellHead}>Display</TableCell>
+                    <TableCell className={classes.cellHead}>System</TableCell>
+                    <TableCell className={classes.cellHead}>Code</TableCell>
+                    <TableCell className={classes.cellHead}>Display</TableCell>
+                    <TableCell className={classes.cellHead}>System</TableCell>
+                    <TableCell className={classes.cellHead}>Code</TableCell>
+                    <TableCell className={classes.cellHead}>Display</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
