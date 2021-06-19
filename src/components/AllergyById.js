@@ -109,7 +109,7 @@ const AllergyById = (props) => {
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h5" component="h2">
-                Observation Details
+                Allergy Details
               </Typography>
               <hr/>
               <Typography>

@@ -33,6 +33,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     marginRight: "1rem",
   },
+  hyperlink:{
+    textDecoration:"underline",
+    color:theme.palette.common.red,
+    textTransform:"none"
+  },
 }));
 
 const baseURL =
@@ -66,7 +71,6 @@ const PatientById = () => {
       .catch((err) => {
         console.log("Fetch error...", err);
       });
-
   };
 
   const handleDelete = async () => {
@@ -123,6 +127,7 @@ const PatientById = () => {
 
       {status === "loading" ? null : status === "Valid" ? (
         <React.Fragment>
+         
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h5" component="h2">
@@ -132,6 +137,17 @@ const PatientById = () => {
               <Typography>
                 <b>ID</b>&nbsp;
                 {patient["resource"]["id"]}
+              </Typography>
+              <Typography>
+                <b>Unique ID</b>&nbsp;
+                <Button
+                  component={Link}
+                  to={`/view-patient-info/${patient.resource.identifier[0].value}`}
+                  className={classes.hyperlink}
+                  size="small"
+                >
+                  {patient.resource.identifier[0].value}
+                </Button>
               </Typography>
 
               <Typography>
