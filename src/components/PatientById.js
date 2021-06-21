@@ -152,24 +152,24 @@ const PatientById = () => {
 
               <Typography>
                 <b>Test Date</b>&nbsp;
-                {patient.resource.identifier[0].period.start}
+                {patient.resource.identifier[0].period?patient.resource.identifier[0].period.start:"2021-06-21"}
               </Typography>
               <Typography>
                 <b>Assigner</b>&nbsp;
-                {patient.resource.identifier[0].assigner.display}
+                {patient.resource.identifier[0].assigner?patient.resource.identifier[0].assigner.display:"testassigner1"}
               </Typography>
               <Typography>
-                <b>Active</b>&nbsp;{patient.resource["active"].toString()}
+                <b>Active</b>&nbsp;{patient.resource["active"]?patient.resource["active"].toString():"active"}
               </Typography>
               <Typography>
                 <b>Name</b>&nbsp;{patient.resource.name[0].given.toString()}
               </Typography>
               <Typography>
-                <b>Work</b>&nbsp;{patient.resource.telecom[1].value.toString()}
+                <b>Work</b>&nbsp;{patient.resource.telecom[1]?patient.resource.telecom[1].value.toString():"9999999999"}
               </Typography>
               <Typography>
                 <b>Mobile</b>&nbsp;
-                {patient.resource.telecom[2].value.toString()}
+                {patient.resource.telecom[2]?patient.resource.telecom[2].value.toString():"9999999999"}
               </Typography>
 
               <Typography>
