@@ -102,7 +102,7 @@ const PatientDetails = (props) => {
       return request;
     }
     getPatient();
-  }, [props.path, params.id, data]);
+  }, []);
 
   const handleOpenMed = () => {
     setOpenMed(true);
