@@ -89,7 +89,7 @@ const PatientDetails = (props) => {
         setPatient(request.data);
         setMedicationData({
           ...medicationData,
-          patientId: request.data.patient.id,
+          patientId: params.id,
           firstName: request.data.patient.firstName,
           lastName: request.data.patient.lastName,
           practitionerId: request.data.encounter.practitioner.reference,
