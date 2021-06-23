@@ -36,6 +36,11 @@ const useStyles = makeStyles((theme) => ({
     border:"1px solid black",
     padding:"0.1em"
   },
+  cellHead:{
+    border:"1px solid black",
+    padding:"0.1em",
+    backgroundColor:theme.palette.common.bn2
+  },
   root:{
     flexGrow:1,
     padding:"3em"
@@ -70,27 +75,27 @@ const AllergyTable = (props) => {
           <Table  >
             <TableHead>
               <TableRow>
-                <TableCell className={classes.cell}>ID</TableCell>
-                <TableCell className={classes.cell}>Last Occurance</TableCell>
-                <TableCell className={classes.cell}>Categories</TableCell>
-                <TableCell className={classes.cell}>Criticality</TableCell>
-                <TableCell className={classes.cell}>Description</TableCell>
-                <TableCell colSpan={3} className={classes.cell}>Substance</TableCell>
-                <TableCell colSpan={3} className={classes.cell}>Manifestation</TableCell>
+                <TableCell className={classes.cellHead}>ID</TableCell>
+                <TableCell className={classes.cellHead}>Last Occurance</TableCell>
+                <TableCell className={classes.cellHead}>Categories</TableCell>
+                <TableCell className={classes.cellHead}>Criticality</TableCell>
+                <TableCell className={classes.cellHead}>Description</TableCell>
+                <TableCell colSpan={3} className={classes.cellHead}>Substance</TableCell>
+                <TableCell colSpan={3} className={classes.cellHead}>Manifestation</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className={classes.cell}></TableCell>
-                <TableCell className={classes.cell}></TableCell>
-                <TableCell className={classes.cell}></TableCell>
-                <TableCell className={classes.cell}></TableCell>
-                <TableCell className={classes.cell}></TableCell>
+                <TableCell className={classes.cellHead}></TableCell>
+                <TableCell className={classes.cellHead}></TableCell>
+                <TableCell className={classes.cellHead}></TableCell>
+                <TableCell className={classes.cellHead}></TableCell>
+                <TableCell className={classes.cellHead}></TableCell>
 
-                <TableCell className={classes.cell}>System</TableCell>
-                <TableCell className={classes.cell}>Code</TableCell>
-                <TableCell className={classes.cell}>Display</TableCell>
-                <TableCell className={classes.cell}>System</TableCell>
-                <TableCell className={classes.cell}>Code</TableCell>
-                <TableCell className={classes.cell}>Display</TableCell>
+                <TableCell className={classes.cellHead}>System</TableCell>
+                <TableCell className={classes.cellHead}>Code</TableCell>
+                <TableCell className={classes.cellHead}>Display</TableCell>
+                <TableCell className={classes.cellHead}>System</TableCell>
+                <TableCell className={classes.cellHead}>Code</TableCell>
+                <TableCell className={classes.cellHead}>Display</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

@@ -25,15 +25,16 @@ const useStyles = makeStyles((theme) => ({
     //   width: "25ch",
     // },
     flexGrow: 1,
+    padding:"3em"
   },
+  button: {
+    margin:"0 1rem 0 auto"
+},
   card: {
     minWidth: 275,
     margin:"0 3em"
   },
-  button: {
-    marginLeft: "auto",
-    marginRight: "1rem",
-  },
+
 }));
 
 const baseURL =

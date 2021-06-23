@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     //   width: "25ch",
     // },
     flexGrow: 1,
+    padding:"3em"
   },
   card: {
     minWidth: 275,

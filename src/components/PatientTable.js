@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   cellHead:{
     border:"1px solid black",
     padding:"0.3em",
-    color:"white"
+    color:"black"
   },
   tableHead:{
     background:theme.palette.common.bn2

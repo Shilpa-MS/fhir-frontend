@@ -16,7 +16,7 @@ import axios from "./axios";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    padding: "2em",
+    padding: "4em 2em",
   },
   heading: {
     color: theme.palette.common.blue,

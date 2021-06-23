@@ -18,19 +18,17 @@ const useStyles = makeStyles((theme) => ({
     //   margin: theme.spacing(1),
     //   width: "25ch",
     // },
-    flexGrow:1,
-    padding:"2em",
- 
+    flexGrow: 1,
+    padding:"3em"
   },
+  button: {
+    margin:"0 1rem 0 auto"
+},
   card: {
     minWidth: 275,
     margin:"0 3em"
   },
-  button: {
-    marginLeft: "auto",
-    marginRight:"1rem"
-   
-  },
+ 
   subHeading:{
       color:theme.palette.common.blue
   }
