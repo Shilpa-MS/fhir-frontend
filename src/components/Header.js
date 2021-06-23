@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     textTransform: "none",
     fontFamily: "Roboto",
+    fontSize:"1.5rem",
+    padding:"1em"
+    
   },
   drawer: {
     backgroundColor: theme.palette.common.green,
@@ -33,12 +36,12 @@ const useStyles = makeStyles((theme) => ({
   drawerItem: {
     ...theme.typography.drawer,
     opacity: 0.7,
-    color: "white",
+    color: "black",
   },
   drawerItemSelected: {
     ...theme.typography.drawer,
     opacity: 1,
-    color: "white",
+    color: "black",
     "& .MuiListItemText-root": {
       opacity: 1,
     },
@@ -177,9 +180,9 @@ const Header = (props) => {
               <MenuIcon style={{ color: "white" }} />
             </IconButton>
             {drawer}
-            <Button className={classes.drawerIconContainer}>
+            <Button className={classes.drawerIconContainer} component={Link} to="/">
               <Typography className={classes.title}>
-                FHIR Data Resources
+                General Practitioner Portal
               </Typography>
             </Button>
             {/* <Button
