@@ -28,13 +28,13 @@ import Alert from "@material-ui/lab/Alert";
 
 const instance = Axios.create({
   baseURL:
-    "http://fhirmashuprestapi-http-ace.cp4i2021-tcs-jumpstart-6fb0b86391cd68c8282858623a1dddff-0000.eu-gb.containers.appdomain.cloud/fhirmashupservice/v1/fhirdata?",
+    "http://fhirmashuprestapi-http-ace.cp4i2021-tcs-jumpstart-6fb0b86391cd68c8282858623a1dddff-0000.eu-gb.containers.appdomain.cloud/fhirmashupservice/v1/",
 });
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    padding: "2em",
+    padding: "4em 2em",
   },
   cell: {
     border: "1px solid black",

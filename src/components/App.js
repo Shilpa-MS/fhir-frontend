@@ -44,7 +44,7 @@ function App() {
           <Route path="/patient" component={()=>(<Patient/>)}/>
           <Route path="/view-patients" component={()=>(<PatientTable path="Patient"/>)}/>
           <Route path="/view-patient-by-id" component={()=>(<PatientById path="Patient"/>)}/>
-          <Route path="/view-patient-info/:id" component={()=>(<PatientDetails path="fhirmashup?identifier="/>)}/>
+          <Route path="/view-patient-info/:id" component={()=>(<PatientDetails path="fhirdata?identifier="/>)}/>
 
           <Route path="/view-observations" component={()=>(<ObservationTable path="Observation"/>)}/>
           <Route path="/view-observation-by-id" component={()=>(<ObservationById path="Observation"/>)}/>
